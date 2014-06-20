@@ -1,0 +1,19 @@
+{
+    "name": "patricklouys/http",
+    "description": "HTTP Component",
+    "keywords": ["http", "request", "response"],
+    "license": "MIT",
+    "version": "0.0.1",
+    "authors": [
+        {
+            "name": "Patrick Louys",
+            "email": "patrick@louys.ch",
+            "role": "Creator / Main Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Http\\": "src/"
+        }
+    }
+}
