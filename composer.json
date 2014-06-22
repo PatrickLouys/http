@@ -3,7 +3,7 @@
     "description": "HTTP Component",
     "keywords": ["http", "request", "response"],
     "license": "MIT",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "authors": [
         {
             "name": "Patrick Louys",
@@ -16,12 +16,6 @@
             "Http\\": "src/"
         }
     },
-    "repositories": [
-        {
-            "url": "https://github.com/PatrickLouys/storage.git",
-            "type": "git"
-        }
-    ],
     "require": {
         "patricklouys/storage": "dev-master"
     },
