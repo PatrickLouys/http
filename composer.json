@@ -3,7 +3,7 @@
     "description": "HTTP Component",
     "keywords": ["http", "request", "response"],
     "license": "MIT",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "authors": [
         {
             "name": "Patrick Louys",
@@ -23,7 +23,7 @@
         }
     ],
     "require": {
-        "patricklouys/storage": "*"
+        "patricklouys/storage": "0.0.*"
     },
     "minimum-stability": "dev"
 }
