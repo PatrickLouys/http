@@ -23,7 +23,7 @@
         }
     ],
     "require": {
-        "patricklouys/http": "*"
+        "patricklouys/storage": "*"
     },
     "minimum-stability": "dev"
 }
