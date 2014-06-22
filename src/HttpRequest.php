@@ -2,6 +2,8 @@
 
 namespace Http;
 
+use Storage\Getter;
+
 class HttpRequest implements Request
 {
     protected $getVariables;
