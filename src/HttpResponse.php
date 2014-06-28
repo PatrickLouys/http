@@ -10,6 +10,10 @@ class HttpResponse implements Response
     private $cookies = [];
     private $content;
 
+    /* Cookie default values */
+    private $httpOnly = true;
+    private $secure = true;
+
     private $statusTexts = [
         100 => 'Continue',
         101 => 'Switching Protocols',
@@ -73,11 +77,35 @@ class HttpResponse implements Response
         511 => 'Network Authentication Required',
     ];
 
-    public function getVersion()
+    /**
+     * Sets the HTTP only flag for cookies
+     * 
+     * @param  boolean $httpOnly
+     * @return void
+     */
+    public function setHttpOnly($httpOnly)
     {
-        return $this->version;
+        $this->httpOnly = (boolean) $httpOnly;
     }
 
+    /**
+     * Sets the secure flag for cookies
+     * 
+     * @param  boolean $secure
+     * @return void
+     */
+    public function setSecure($secure)
+    {
+        $this->secure = (boolean) $secure;
+    }
+
+    /**
+     * Sets the HTTP status code
+     * 
+     * @param  integer $statusCode
+     * @return void
+     * @throws \InvalidArgumentException
+     */
     public function setStatusCode($statusCode)
     {
         if (!array_key_exists((int) $statusCode, $this->statusTexts)) {
@@ -87,39 +115,119 @@ class HttpResponse implements Response
         $this->statusCode = (int) $statusCode;
     }
 
-    public function getStatusCode()
+    /**
+     * Adds a header
+     * 
+     * @param  string $name
+     * @param  string $value
+     * @return void
+     */
+    public function addHeader($name, $value)
     {
-        return $this->statusCode;
+        $this->headers[$name][] = (string) $value;
     }
 
-    public function getStatusText()
+    /**
+     * Sets a new header
+     * 
+     * Replaces all headers with the same names.
+     * 
+     * @param  string $name
+     * @param  string $value
+     * @return void
+     */
+    public function setHeader($name, $value)
     {
-        return $this->statusTexts[$this->statusCode];
+        $this->headers[$name] = [
+            (string) $value,
+        ];
     }
 
+    /**
+     * Returns an array with the HTTP Headers
+     * 
+     * @return array
+     */
     public function getHeaders()
     {
-        return $this->headers;
+        $headers = [];
+
+        $headers[] = sprintf(
+            'HTTP/%s %s %s', 
+            $this->version, 
+            $this->statusCode, 
+            $this->statusTexts[$this->statusCode]
+        );
+
+        foreach ($this->headers as $name => $value) {
+            $headers[] = "$name: $value";
+        }
+
+        return $headers;
     }
 
-    public function getCookies()
-    {
-        return $this->cookies;
+    /**
+     * @param  string  $name
+     * @param  string  $value
+     * @param  integer $expiresInSeconds (optional)
+     * @param  boolean $secure (optional)
+     * @param  boolean $httpOnly (optional)
+     * @return void
+     */
+    public function setCookie(
+        $name, 
+        $value, 
+        $expiresInSeconds = null, 
+        $secure = null, 
+        $httpOnly = null
+    ) {
+        if ($secure === null) {
+            $secure = $this->secure;
+        }
+
+        if ($httpOnly === null) {
+            $httpOnly = $this->httpOnly;
+        }
+
+        $this->cookies[$name] = [
+            'name' => $name,
+            'value' => $value,
+            'expiration' => time() + (integer) $expiresInSeconds,
+            'secure' => (boolean) $secure,
+            'httpOnly' => (boolean) $httpOnly,
+        ];
     }
 
+    /**
+     * Sets the body content
+     * 
+     * @param  string $content
+     * @return void
+     */
     public function setContent($content)
     {
         $this->content = (string) $content;
     }
 
+    /**
+     * Returns the body content
+     * 
+     * @return string
+     */
     public function getContent()
     {
         return $this->content;
     }
 
+    /**
+     * Sets the headers for a redirect
+     * 
+     * @param  string $url
+     * @return void
+     */
     public function redirect($url)
     {
-        $this->headers['Location'] = (string) $url;
-        $this->statusCode = 301;
+        $this->setHeader('Location', $url);
+        $this->setStatusCode(301);
     }
 }

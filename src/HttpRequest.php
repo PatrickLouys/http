@@ -6,93 +6,168 @@ use Storage\Getter;
 
 class HttpRequest implements Request
 {
-    protected $getVariables;
-    protected $postVariables;
-    protected $serverVariables;
-    protected $filesVariables;
-    protected $cookieVariables;
+    protected $parameterVars;
+    protected $serverVars;
+    protected $fileVars;
+    protected $cookieVars;
 
     public function __construct(
-        Getter $getVariables,
-        Getter $postVariables,
-        Getter $serverVariables,
-        Getter $filesVariables,
-        Getter $cookieVariables
+        Getter $parameterVars,
+        Getter $cookieVars
+        Getter $fileVars,
+        Getter $serverVars,
     ) {
-        $this->getVariables = $getVariables;
-        $this->postVariables = $postVariables;
-        $this->serverVariables = $serverVariables;
-        $this->filesVariables = $filesVariables;
-        $this->cookieVariables = $cookieVariables;
+        $this->parameterVars = $parameterVars;
+        $this->cookieVars = $cookieVars;
+        $this->fileVars = $fileVars;
+        $this->serverVars = $serverVars;
     }
 
-    public function get($key, $defaultValue = null)
+    /**
+     * Returns a parameter value or a default value if none is set.
+     * 
+     * @param  string $key
+     * @param  string $defaultValue (optional)
+     * @return string
+     */
+    public function getParameter($key, $defaultValue = null)
     {
-        if(true === $this->getVariables->has($key)) {
-            return $this->getVariables->get($key);
+        if(true === $this->parameterVars->has($key)) {
+            return $this->parameterVars->get($key);
         }
+
         return $defaultValue;
     }
 
-    public function post($key, $defaultValue = null)
+    /**
+     * Returns a file value or a default value if none is set.
+     * 
+     * @param  string $key
+     * @param  string $defaultValue (optional)
+     * @return string
+     */
+    public function getFile($key, $defaultValue = null)
     {
-        if(true === $this->postVariables->has($key)) {
-            return $this->postVariables->get($key);
+        if(true === $this->fileVars->has($key)) {
+            return $this->fileVars->get($key);
         }
+
         return $defaultValue;
     }
 
-    public function server($key, $defaultValue = null)
+    /**
+     * Returns a cookie value or a default value if none is set.
+     * 
+     * @param  string $key
+     * @param  string $defaultValue (optional)
+     * @return string
+     */
+    public function getCookie($key, $defaultValue = null)
     {
-        if(true === $this->serverVariables->has($key)) {
-            return $this->serverVariables->get($key);
+        if(true === $this->cookieVars->has($key)) {
+            return $this->cookieVars->get($key);
         }
+
         return $defaultValue;
     }
 
-    public function files($key, $defaultValue = null)
+    /**
+     * Returns a File Iterator.
+     * 
+     * @return \Storage\ImmutableKeyValue
+     */
+    public function getParameterIterator()
     {
-        if(true === $this->filesVariables->has($key)) {
-            return $this->filesVariables->get($key);
-        }
-        return $defaultValue;
+        return $this->parameterVars;
     }
 
-    public function cookie($key, $defaultValue = null)
+    /**
+     * Returns a Cookie Iterator.
+     * 
+     * @return \Storage\ImmutableKeyValue
+     */
+    public function getCookieIterator()
     {
-        if(true === $this->cookieVariables->has($key)) {
-            return $this->cookieVariables->get($key);
-        }
-        return $defaultValue;
+        return $this->cookieVars;
     }
 
-    public function getIterator()
+    /**
+     * Returns a File Iterator.
+     * 
+     * @return \Storage\ImmutableKeyValue
+     */
+    public function getFileIterator()
     {
-        return $this->getVariables;
+        return $this->fileVars;
     }
 
-    public function postIterator()
-    {
-        return $this->postVariables;
-    }
-
-    public function serverIterator()
-    {
-        return $this->serverVariables;
-    }
-
-    public function filesIterator()
-    {
-        return $this->filesVariables;
-    }
-
-    public function cookieIterator()
-    {
-        return $this->cookieVariables;
-    }
-
+    /**
+     * Which request method was used to access the page; i.e. 'GET', 'HEAD', 'POST', 'PUT'. 
+     * 
+     * @return string
+     */
     public function getMethod()
     {
-        return $this->server('REQUEST_METHOD');
+        return $this->serverVars->get('REQUEST_METHOD');
+    }
+
+    /**
+     * Contents of the Accept: header from the current request, if there is one.
+     * 
+     * @return string
+     */
+    public function getHttpAccept()
+    {
+        return $this->serverVars->get('HTTP_ACCEPT');
+    }
+
+    /**
+     * The address of the page (if any) which referred the user agent to the current page.
+     * 
+     * @return string
+     */
+    public function getReferer()
+    {
+        return $this->serverVars->get('HTTP_REFERER');
+    }
+
+    /**
+     * Contents of the User-Agent: header from the current request, if there is one.
+     * 
+     * @return string
+     */
+    public function getUserAgent()
+    {
+        return $this->serverVars->get('HTTP_USER_AGENT');
+    }
+
+    /**
+     * The IP address from which the user is viewing the current page.
+     * 
+     * @return string
+     */
+    public function getIpAddress()
+    {
+        return $this->serverVars->getVars->get('HTTP_USER_AGENT');
+    }
+
+    /**
+     * Checks to see whether the current request is using HTTPS.
+     * 
+     * @return boolean
+     */
+    public function isSecure()
+    {
+        return ($this->serverVars->has('HTTPS') && $this->serverVars->get('HTTPS') !== 'off');
+    }
+
+    /**
+     * The query string, if any, via which the page was accessed.
+     * 
+     * @return string
+     */
+    public function getQueryString()
+    {
+        return $this->serverVars->getVars->get('QUERY_STRING');
     }
 }
