@@ -16,14 +16,8 @@
             "Http\\": "src/"
         }
     },
-    "repositories": [
-        {
-            "url": "https://github.com/PatrickLouys/storage.git",
-            "type": "git"
-        }
-    ],
     "require": {
-        "patricklouys/storage": "0.0.*"
+        "patricklouys/storage": "dev-master"
     },
     "minimum-stability": "dev"
 }
