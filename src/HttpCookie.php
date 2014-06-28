@@ -90,7 +90,9 @@ class HttpCookie implements Cookie
      */
     public function getHeaderString()
     {
-        $parts = ["$name=$value"];
+        $parts = [
+            $this->name . '=' . $this->value,
+        ];
 
         if ($this->maxAge !== null) {
             $parts[] = 'Max-Age = '. $maxAge;
