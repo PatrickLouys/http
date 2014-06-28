@@ -102,7 +102,8 @@ class HttpRequest implements Request
     }
 
     /**
-     * Which request method was used to access the page; i.e. 'GET', 'HEAD', 'POST', 'PUT'. 
+     * Which request method was used to access the page;
+     * i.e. 'GET', 'HEAD', 'POST', 'PUT'. 
      * 
      * @return string
      */
@@ -122,7 +123,8 @@ class HttpRequest implements Request
     }
 
     /**
-     * The address of the page (if any) which referred the user agent to the current page.
+     * The address of the page (if any) which referred the user agent to the 
+     * current page.
      * 
      * @return string
      */
@@ -132,7 +134,7 @@ class HttpRequest implements Request
     }
 
     /**
-     * Contents of the User-Agent: header from the current request, if there is one.
+     * Content of the User-Agent header from the request, if there is one.
      * 
      * @return string
      */
@@ -158,7 +160,9 @@ class HttpRequest implements Request
      */
     public function isSecure()
     {
-        return ($this->serverVars->has('HTTPS') && $this->serverVars->get('HTTPS') !== 'off');
+        return ($this->serverVars->has('HTTPS') 
+            && $this->serverVars->get('HTTPS') !== 'off'
+        );
     }
 
     /**

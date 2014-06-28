@@ -10,10 +10,6 @@ class HttpResponse implements Response
     private $cookies = [];
     private $content;
 
-    /* Cookie default values */
-    private $httpOnly = true;
-    private $secure = true;
-
     private $statusTexts = [
         100 => 'Continue',
         101 => 'Switching Protocols',
@@ -78,29 +74,7 @@ class HttpResponse implements Response
     ];
 
     /**
-     * Sets the HTTP only flag for cookies
-     * 
-     * @param  boolean $httpOnly
-     * @return void
-     */
-    public function setHttpOnly($httpOnly)
-    {
-        $this->httpOnly = (boolean) $httpOnly;
-    }
-
-    /**
-     * Sets the secure flag for cookies
-     * 
-     * @param  boolean $secure
-     * @return void
-     */
-    public function setSecure($secure)
-    {
-        $this->secure = (boolean) $secure;
-    }
-
-    /**
-     * Sets the HTTP status code
+     * Sets the HTTP status code.
      * 
      * @param  integer $statusCode
      * @return void
@@ -109,14 +83,16 @@ class HttpResponse implements Response
     public function setStatusCode($statusCode)
     {
         if (!array_key_exists((int) $statusCode, $this->statusTexts)) {
-            throw new \InvalidArgumentException($statusCode . ' is not a valid HTTP status code.');
+            throw new \InvalidArgumentException(
+                $statusCode . ' is not a valid HTTP status code.'
+            );
         }
 
         $this->statusCode = (int) $statusCode;
     }
 
     /**
-     * Adds a header
+     * Adds a header with the given name.
      * 
      * @param  string $name
      * @param  string $value
@@ -128,7 +104,7 @@ class HttpResponse implements Response
     }
 
     /**
-     * Sets a new header
+     * Sets a new header for the given name.
      * 
      * Replaces all headers with the same names.
      * 
@@ -144,7 +120,7 @@ class HttpResponse implements Response
     }
 
     /**
-     * Returns an array with the HTTP Headers
+     * Returns an array with the HTTP headers.
      * 
      * @return array
      */
@@ -163,43 +139,26 @@ class HttpResponse implements Response
             $headers[] = "$name: $value";
         }
 
+        foreach ($this->cookies as $cookie) {
+            $headers[] = 'Set-Cookie: ' . $cookie->getHeaderString();
+        }
+
         return $headers;
     }
 
     /**
-     * @param  string  $name
-     * @param  string  $value
-     * @param  integer $expiresInSeconds (optional)
-     * @param  boolean $secure (optional)
-     * @param  boolean $httpOnly (optional)
+     * Sets a new cookie.
+     * 
+     * @param  Cookie $cookie
      * @return void
      */
-    public function setCookie(
-        $name, 
-        $value, 
-        $expiresInSeconds = null, 
-        $secure = null, 
-        $httpOnly = null
-    ) {
-        if ($secure === null) {
-            $secure = $this->secure;
-        }
-
-        if ($httpOnly === null) {
-            $httpOnly = $this->httpOnly;
-        }
-
-        $this->cookies[$name] = [
-            'name' => $name,
-            'value' => $value,
-            'expiration' => time() + (integer) $expiresInSeconds,
-            'secure' => (boolean) $secure,
-            'httpOnly' => (boolean) $httpOnly,
-        ];
+    public function setCookie(Cookie $cookie)
+    {
+        $this->cookies[$cookie->getName()] = $cookie;
     }
 
     /**
-     * Sets the body content
+     * Sets the body content.
      * 
      * @param  string $content
      * @return void
@@ -210,7 +169,7 @@ class HttpResponse implements Response
     }
 
     /**
-     * Returns the body content
+     * Returns the body content.
      * 
      * @return string
      */
@@ -220,7 +179,7 @@ class HttpResponse implements Response
     }
 
     /**
-     * Sets the headers for a redirect
+     * Sets the headers for a redirect.
      * 
      * @param  string $url
      * @return void
