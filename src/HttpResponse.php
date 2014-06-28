@@ -135,8 +135,10 @@ class HttpResponse implements Response
             $this->statusTexts[$this->statusCode]
         );
 
-        foreach ($this->headers as $name => $value) {
-            $headers[] = "$name: $value";
+        foreach ($this->headers as $name => $values) {
+            foreach ($values as $value) {
+                $headers[] = "$name: $value";
+            }
         }
 
         foreach ($this->cookies as $cookie) {
