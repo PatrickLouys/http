@@ -13,9 +13,9 @@ class HttpRequest implements Request
 
     public function __construct(
         Getter $parameterVars,
-        Getter $cookieVars
+        Getter $cookieVars,
         Getter $fileVars,
-        Getter $serverVars,
+        Getter $serverVars
     ) {
         $this->parameterVars = $parameterVars;
         $this->cookieVars = $cookieVars;
