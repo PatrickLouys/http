@@ -31,7 +31,7 @@ class CookieBuilder
 
     public function build($name, $value)
     {
-        $cookie = new Cookie($name, $value);
+        $cookie = new HttpCookie($name, $value);
         $cookie->setPath($this->defaultPath);
         $cookie->setSecure($this->defaultSecure);
         $cookie->setHttpOnly($this->defaultHttpOnly);
