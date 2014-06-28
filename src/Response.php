@@ -4,12 +4,11 @@ namespace Http;
 
 interface Response
 {
-    public function getVersion();
     public function setStatusCode($statusCode);
-    public function getStatusCode();
-    public function getStatusText();
+    public function addHeader($name, $value);
+    public function setHeader($name, $value);
     public function getHeaders();
-    public function getCookies();
+    public function setCookie(Cookie $cookie);
     public function setContent($content);
     public function getContent();
     public function redirect($url);
