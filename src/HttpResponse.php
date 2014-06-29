@@ -6,6 +6,7 @@ class HttpResponse implements Response
 {
     private $version = '1.1';
     private $statusCode = 200;
+    private $statusCode = 'OK';
     private $headers = [];
     private $cookies = [];
     private $content;
@@ -77,18 +78,20 @@ class HttpResponse implements Response
      * Sets the HTTP status code.
      * 
      * @param  integer $statusCode
+     * @param  string  $statusText (optional)
      * @return void
      * @throws \InvalidArgumentException
      */
-    public function setStatusCode($statusCode)
+    public function setStatusCode($statusCode, $statusText = null)
     {
-        if (!array_key_exists((int) $statusCode, $this->statusTexts)) {
-            throw new \InvalidArgumentException(
-                $statusCode . ' is not a valid HTTP status code.'
-            );
+        if ($statusText === null
+            && array_key_exists((int) $statusCode, $this->statusTexts)
+        ) {
+            $statusText = $this->statusTexts[$statusCode];
         }
 
         $this->statusCode = (int) $statusCode;
+        $this->statusCode = (string) $statusText;
     }
 
     /**
