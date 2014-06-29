@@ -6,21 +6,21 @@ use Storage\Getter;
 
 class HttpRequest implements Request
 {
-    protected $parameterVars;
-    protected $serverVars;
-    protected $fileVars;
-    protected $cookieVars;
+    protected $parameters;
+    protected $server;
+    protected $files;
+    protected $cookies;
 
     public function __construct(
-        Getter $parameterVars,
-        Getter $cookieVars,
-        Getter $fileVars,
-        Getter $serverVars
+        Getter $parameters,
+        Getter $cookies,
+        Getter $files,
+        Getter $server
     ) {
-        $this->parameterVars = $parameterVars;
-        $this->cookieVars = $cookieVars;
-        $this->fileVars = $fileVars;
-        $this->serverVars = $serverVars;
+        $this->parameters = $parameters;
+        $this->cookies = $cookies;
+        $this->files = $files;
+        $this->server = $server;
     }
 
     /**
@@ -32,8 +32,8 @@ class HttpRequest implements Request
      */
     public function getParameter($key, $defaultValue = null)
     {
-        if(true === $this->parameterVars->has($key)) {
-            return $this->parameterVars->get($key);
+        if(true === $this->parameters->has($key)) {
+            return $this->parameters->get($key);
         }
 
         return $defaultValue;
@@ -48,8 +48,8 @@ class HttpRequest implements Request
      */
     public function getFile($key, $defaultValue = null)
     {
-        if(true === $this->fileVars->has($key)) {
-            return $this->fileVars->get($key);
+        if(true === $this->files->has($key)) {
+            return $this->files->get($key);
         }
 
         return $defaultValue;
@@ -64,8 +64,8 @@ class HttpRequest implements Request
      */
     public function getCookie($key, $defaultValue = null)
     {
-        if(true === $this->cookieVars->has($key)) {
-            return $this->cookieVars->get($key);
+        if(true === $this->cookies->has($key)) {
+            return $this->cookies->get($key);
         }
 
         return $defaultValue;
@@ -76,9 +76,9 @@ class HttpRequest implements Request
      * 
      * @return \Storage\ImmutableKeyValue
      */
-    public function getParameterIterator()
+    public function getParameters()
     {
-        return $this->parameterVars;
+        return $this->parameters;
     }
 
     /**
@@ -86,9 +86,9 @@ class HttpRequest implements Request
      * 
      * @return \Storage\ImmutableKeyValue
      */
-    public function getCookieIterator()
+    public function getCookies()
     {
-        return $this->cookieVars;
+        return $this->cookies;
     }
 
     /**
@@ -96,9 +96,9 @@ class HttpRequest implements Request
      * 
      * @return \Storage\ImmutableKeyValue
      */
-    public function getFileIterator()
+    public function getFiles()
     {
-        return $this->fileVars;
+        return $this->files;
     }
 
     /**
@@ -109,7 +109,7 @@ class HttpRequest implements Request
      */
     public function getMethod()
     {
-        return $this->serverVars->get('REQUEST_METHOD');
+        return $this->server->get('REQUEST_METHOD');
     }
 
     /**
@@ -119,7 +119,7 @@ class HttpRequest implements Request
      */
     public function getHttpAccept()
     {
-        return $this->serverVars->get('HTTP_ACCEPT');
+        return $this->server->get('HTTP_ACCEPT');
     }
 
     /**
@@ -130,7 +130,7 @@ class HttpRequest implements Request
      */
     public function getReferer()
     {
-        return $this->serverVars->get('HTTP_REFERER');
+        return $this->server->get('HTTP_REFERER');
     }
 
     /**
@@ -140,7 +140,7 @@ class HttpRequest implements Request
      */
     public function getUserAgent()
     {
-        return $this->serverVars->get('HTTP_USER_AGENT');
+        return $this->server->get('HTTP_USER_AGENT');
     }
 
     /**
@@ -150,7 +150,7 @@ class HttpRequest implements Request
      */
     public function getIpAddress()
     {
-        return $this->serverVars->getVars->get('HTTP_USER_AGENT');
+        return $this->server->getVars->get('HTTP_USER_AGENT');
     }
 
     /**
@@ -160,8 +160,8 @@ class HttpRequest implements Request
      */
     public function isSecure()
     {
-        return ($this->serverVars->has('HTTPS') 
-            && $this->serverVars->get('HTTPS') !== 'off'
+        return ($this->server->has('HTTPS') 
+            && $this->server->get('HTTPS') !== 'off'
         );
     }
 
@@ -172,6 +172,6 @@ class HttpRequest implements Request
      */
     public function getQueryString()
     {
-        return $this->serverVars->getVars->get('QUERY_STRING');
+        return $this->server->getVars->get('QUERY_STRING');
     }
 }
