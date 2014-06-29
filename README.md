@@ -1,7 +1,5 @@
-http
-====
-
 Http Component
+====
 
 ```php
 <?php
