@@ -80,7 +80,6 @@ class HttpResponse implements Response
      * @param  integer $statusCode
      * @param  string  $statusText (optional)
      * @return void
-     * @throws \InvalidArgumentException
      */
     public function setStatusCode($statusCode, $statusText = null)
     {

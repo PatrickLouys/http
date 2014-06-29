@@ -3,7 +3,7 @@
     "description": "HTTP Component",
     "keywords": ["http", "request", "response"],
     "license": "MIT",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "authors": [
         {
             "name": "Patrick Louys",
@@ -15,9 +15,5 @@
         "psr-4": {
             "Http\\": "src/"
         }
-    },
-    "require": {
-        "patricklouys/storage": "dev-master"
-    },
-    "minimum-stability": "dev"
+    }
 }
