@@ -26,7 +26,7 @@ $content .= $request->getCookie('TestCookie', 'Cookie is not set.');
 
 if ($request->getParameter('setCookie') === 'true') {
     $cookie = $cookieBuilder->build('TestCookie', 'Cookie is set.');
-    $response->setCookie($cookie);
+    $response->addCookie($cookie);
 }
 
 $response->setContent($content);

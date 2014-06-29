@@ -149,12 +149,12 @@ class HttpResponse implements Response
     }
 
     /**
-     * Sets a new cookie.
+     * Adds a new cookie.
      * 
      * @param  Cookie $cookie
      * @return void
      */
-    public function setCookie(Cookie $cookie)
+    public function addCookie(Cookie $cookie)
     {
         $this->cookies[$cookie->getName()] = $cookie;
     }
