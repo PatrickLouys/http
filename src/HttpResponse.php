@@ -6,7 +6,7 @@ class HttpResponse implements Response
 {
     private $version = '1.1';
     private $statusCode = 200;
-    private $statusCode = 'OK';
+    private $statusText = 'OK';
     private $headers = [];
     private $cookies = [];
     private $content;
@@ -90,7 +90,7 @@ class HttpResponse implements Response
         }
 
         $this->statusCode = (int) $statusCode;
-        $this->statusCode = (string) $statusText;
+        $this->statusText = (string) $statusText;
     }
 
     /**
@@ -130,12 +130,12 @@ class HttpResponse implements Response
     {
         $headers = [];
 
-        $headers[] = sprintf(
+        $headers[] = trim(sprintf(
             'HTTP/%s %s %s', 
             $this->version, 
             $this->statusCode, 
-            $this->statusTexts[$this->statusCode]
-        );
+            $this->statusText
+        ));
 
         foreach ($this->headers as $name => $values) {
             foreach ($values as $value) {
