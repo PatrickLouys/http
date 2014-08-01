@@ -106,19 +106,19 @@ class HttpCookie implements Cookie
         ];
 
         if ($this->maxAge !== null) {
-            $parts[] = 'Max-Age = '. $maxAge;
+            $parts[] = 'Max-Age='. $this->maxAge;
             $parts[] = 'expires=' . date(
-                "Wdy, DD Mon YYYY HH:MM:SS GMT", 
-                time() + $maxAge
-            );
+                "D, d-M-Y H:i:s", 
+                time() + $this->maxAge
+            ) . ' GMT';
         }
 
         if ($this->domain) {
-            $parts[] = "domain=$domain";
+            $parts[] = "domain=$this->domain";
         }
 
         if ($this->path) {
-            $parts[] = "path=$path";
+            $parts[] = "path=$this->path";
         }
 
         if ($this->secure) {
