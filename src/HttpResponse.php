@@ -162,6 +162,19 @@ class HttpResponse implements Response
     }
 
     /**
+     * Deletes a cookie.
+     * 
+     * @param  Cookie $cookie
+     * @return void
+     */
+    public function deleteCookie(Cookie $cookie)
+    {
+        $cookie->setValue('');
+        $cookie->setMaxAge(-1);
+        $this->cookies[$cookie->getName()] = $cookie;
+    }
+
+    /**
      * Sets the body content.
      * 
      * @param  string $content

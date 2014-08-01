@@ -44,7 +44,6 @@ class HttpResponseTest extends \PHPUnit_Framework_TestCase
         $response->addHeader('name', 'value');
         $response->addHeader('name2', 'value2');
         $response->setHeader('name2', 'value3');
-
         $this->assertEquals($response->getHeaders()[2], 'name2: value3');
     }
 
@@ -59,11 +58,18 @@ class HttpResponseTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($response->getHeaders()[2], 'Set-Cookie: mock2');
     }
 
+    public function testDeleteCookie()
+    {
+        $response = new HttpResponse;
+        $response->addCookie(new MockCookie('mock1'));
+        $response->deleteCookie(new MockCookie('mock1'));
+        $this->assertEquals($response->getHeaders()[1], 'Set-Cookie: mock1  -1');
+    }
+
     public function testSetContent()
     {
         $response = new HttpResponse;
         $response->setContent('test');
-
         $this->assertEquals($response->getContent(), 'test');
     }
 
@@ -71,7 +77,6 @@ class HttpResponseTest extends \PHPUnit_Framework_TestCase
     {
         $response = new HttpResponse;
         $response->redirect('http://test.com');
-
         $this->assertEquals($response->getHeaders(), [
             'HTTP/1.1 301 Moved Permanently',
             'Location: http://test.com'
@@ -82,6 +87,8 @@ class HttpResponseTest extends \PHPUnit_Framework_TestCase
 class MockCookie implements \Http\Cookie
 {
     private $name;
+    private $value;
+    private $maxAge;
 
     public function __construct($name)
     {
@@ -93,8 +100,14 @@ class MockCookie implements \Http\Cookie
         return $this->name;
     }
 
+    public function setValue($value)
+    {
+        $this->value = (string) $value;
+    }
+
     public function setMaxAge($seconds)
     {
+        $this->maxAge = (int) $seconds;
     }
 
     public function setDomain($domain)
@@ -115,6 +128,6 @@ class MockCookie implements \Http\Cookie
 
     public function getHeaderString()
     {
-        return $this->name;
+        return trim(implode(' ', [$this->name, $this->value, $this->maxAge]));
     }
 }

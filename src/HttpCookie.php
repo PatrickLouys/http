@@ -29,6 +29,17 @@ class HttpCookie implements Cookie
     }
 
     /**
+     * Sets the cookie value.
+     * 
+     * @param  string $value
+     * @return void
+     */
+    public function setValue($value)
+    {
+        $this->value = (string) $value;
+    }
+
+    /**
      * Sets the cookie max age in seconds.
      * 
      * @param  integer $seconds

@@ -5,6 +5,7 @@ namespace Http;
 interface Cookie
 {
     public function getName();
+    public function setValue($value);
     public function setMaxAge($seconds);
     public function setDomain($domain);
     public function setPath($path);
