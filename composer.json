@@ -3,7 +3,7 @@
     "description": "HTTP Component",
     "keywords": ["http", "request", "response"],
     "license": "MIT",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "authors": [
         {
             "name": "Patrick Louys",
@@ -11,6 +11,12 @@
             "role": "Creator / Main Developer"
         }
     ],
+    "require": {
+        "php": ">=5.5.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.0.*"
+    },
     "autoload": {
         "psr-4": {
             "Http\\": "src/"

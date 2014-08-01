@@ -108,7 +108,7 @@ class HttpRequest implements Request
      */
     public function getMethod()
     {
-        if (array_key_exists('REQUEST_METHOD', $this->server)) {
+        if (!array_key_exists('REQUEST_METHOD', $this->server)) {
             throw new MissingRequestMetaVariableException('REQUEST_METHOD');
         }
         
@@ -123,7 +123,7 @@ class HttpRequest implements Request
      */
     public function getHttpAccept()
     {
-        if (array_key_exists('HTTP_ACCEPT', $this->server)) {
+        if (!array_key_exists('HTTP_ACCEPT', $this->server)) {
             throw new MissingRequestMetaVariableException('HTTP_ACCEPT');
         }
         
@@ -139,7 +139,7 @@ class HttpRequest implements Request
      */
     public function getReferer()
     {
-        if (array_key_exists('HTTP_REFERER', $this->server)) {
+        if (!array_key_exists('HTTP_REFERER', $this->server)) {
             throw new MissingRequestMetaVariableException('HTTP_REFERER');
         }
         
@@ -154,7 +154,7 @@ class HttpRequest implements Request
      */
     public function getUserAgent()
     {
-        if (array_key_exists('HTTP_USER_AGENT', $this->server)) {
+        if (!array_key_exists('HTTP_USER_AGENT', $this->server)) {
             throw new MissingRequestMetaVariableException('HTTP_USER_AGENT');
         }
         
@@ -169,7 +169,7 @@ class HttpRequest implements Request
      */
     public function getIpAddress()
     {
-        if (array_key_exists('REMOTE_ADDR', $this->server)) {
+        if (!array_key_exists('REMOTE_ADDR', $this->server)) {
             throw new MissingRequestMetaVariableException('REMOTE_ADDR');
         }
         
@@ -196,7 +196,7 @@ class HttpRequest implements Request
      */
     public function getQueryString()
     {
-        if (array_key_exists('QUERY_STRING', $this->server)) {
+        if (!array_key_exists('QUERY_STRING', $this->server)) {
             throw new MissingRequestMetaVariableException('QUERY_STRING');
         }
         
