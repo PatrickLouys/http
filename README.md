@@ -148,4 +148,3 @@ foreach ($response->getHeaders() as $header) {
 
 echo $response->getContent();
 ```
-None of the classes have side effects like sending data to the browser, so it is up to you to do that. The objects only hold data.
