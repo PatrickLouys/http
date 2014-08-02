@@ -3,7 +3,6 @@
     "description": "HTTP Component",
     "keywords": ["http", "request", "response"],
     "license": "MIT",
-    "version": "0.0.6",
     "authors": [
         {
             "name": "Patrick Louys",
