@@ -10,12 +10,13 @@ class HttpRequest implements Request
     protected $cookies;
 
     public function __construct(
-        array $parameters,
+        array $get,
+        array $post,
         array $cookies,
         array $files,
         array $server
     ) {
-        $this->parameters = $parameters;
+        $this->parameters = array_merge($get, $post);
         $this->cookies = $cookies;
         $this->files = $files;
         $this->server = $server;

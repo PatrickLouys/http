@@ -8,26 +8,29 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetParameter()
     {
-        $params = [
+        $get = [
             'key1' => 'value1',
+        ];
+
+        $post = [
             'key2' => 'value2',
         ];
 
-        $request = new HttpRequest($params, [], [], []);
+        $request = new HttpRequest($get, $post, [], [], []);
 
         $this->assertEquals(
             $request->getParameter('key1'), 
-            $params['key1']
+            $get['key1']
         );
 
         $this->assertEquals(
             $request->getParameter('key1', 'defaultValue'), 
-            $params['key1']
+            $get['key1']
         );
 
         $this->assertEquals(
             $request->getParameter('key2'), 
-            $params['key2']
+            $post['key2']
         );
 
         $this->assertEquals(
@@ -45,7 +48,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
             'key2' => 'value2',
         ];
 
-        $request = new HttpRequest([], $cookies, [], []);
+        $request = new HttpRequest([], [], $cookies, [], []);
 
         $this->assertEquals(
             $request->getCookie('key1'), 
@@ -77,7 +80,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
             'key2' => 'value2',
         ];
 
-        $request = new HttpRequest([], [], $files, []);
+        $request = new HttpRequest([], [], [], $files, []);
 
         $this->assertEquals(
             $request->getFile('key1'), 
@@ -104,13 +107,13 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
 
     public function testGetParameters()
     {
-        $params = ['key1' => 'value1'];
+        $get = ['key1' => 'value1'];
 
-        $request = new HttpRequest($params, [], [], []);
+        $request = new HttpRequest($get, [], [], [], []);
 
         $this->assertEquals(
             $request->getParameters(), 
-            $params
+            $get
         );
     }
 
@@ -118,7 +121,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
     {
         $cookies = ['key1' => 'value1'];
 
-        $request = new HttpRequest([], $cookies, [], []);
+        $request = new HttpRequest([], [], $cookies, [], []);
 
         $this->assertEquals(
             $request->getCookies(), 
@@ -130,7 +133,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
     {
         $files = ['key1' => 'value1'];
 
-        $request = new HttpRequest([], [], $files, []);
+        $request = new HttpRequest([], [], [], $files, []);
 
         $this->assertEquals(
             $request->getFiles(), 
@@ -142,7 +145,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
     {
         $server = ['REQUEST_METHOD' => 'POST'];
 
-        $request = new HttpRequest([], [], [], $server);
+        $request = new HttpRequest([], [], [], [], $server);
 
         $this->assertEquals(
             $request->getMethod(), 
@@ -155,7 +158,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetMethodException()
     {
-        $request = new HttpRequest([], [], [], []);
+        $request = new HttpRequest([], [], [], [], []);
         $request->getMethod();
     }
 
@@ -163,7 +166,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
     {
         $server = ['HTTP_ACCEPT' => 'Accept: audio/*; q=0.2, audio/basic'];
 
-        $request = new HttpRequest([], [], [], $server);
+        $request = new HttpRequest([], [], [], [], $server);
 
         $this->assertEquals(
             $request->getHttpAccept(), 
@@ -176,7 +179,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetHttpAcceptException()
     {
-        $request = new HttpRequest([], [], [], []);
+        $request = new HttpRequest([], [], [], [], []);
         $request->getHttpAccept();
     }
 
@@ -184,7 +187,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
     {
         $server = ['HTTP_REFERER' => 'http://www.example.com/abc?s=a&b=c'];
 
-        $request = new HttpRequest([], [], [], $server);
+        $request = new HttpRequest([], [], [], [], $server);
 
         $this->assertEquals(
             $request->getReferer(), 
@@ -197,7 +200,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetRefererException()
     {
-        $request = new HttpRequest([], [], [], []);
+        $request = new HttpRequest([], [], [], [], []);
         $request->getReferer();
     }
 
@@ -205,7 +208,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
     {
         $server = ['HTTP_USER_AGENT' => 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:30.0) Gecko/20100101 Firefox/30.0'];
 
-        $request = new HttpRequest([], [], [], $server);
+        $request = new HttpRequest([], [], [], [], $server);
 
         $this->assertEquals(
             $request->getUserAgent(), 
@@ -218,7 +221,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetUserAgentException()
     {
-        $request = new HttpRequest([], [], [], []);
+        $request = new HttpRequest([], [], [], [], []);
         $request->getUserAgent();
     }
 
@@ -226,7 +229,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
     {
         $server = ['REMOTE_ADDR' => '127.0.0.1'];
 
-        $request = new HttpRequest([], [], [], $server);
+        $request = new HttpRequest([], [], [], [], $server);
 
         $this->assertEquals(
             $request->getIpAddress(), 
@@ -239,19 +242,19 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetIpAddressException()
     {
-        $request = new HttpRequest([], [], [], []);
+        $request = new HttpRequest([], [], [], [], []);
         $request->getIpAddress();
     }
 
     public function testIsSecure()
     {
-        $request = new HttpRequest([], [], [], []);
+        $request = new HttpRequest([], [], [], [], []);
         $this->assertFalse($request->isSecure());
 
-        $request = new HttpRequest([], [], [], ['HTTPS' => 'off']);
+        $request = new HttpRequest([], [], [], [], ['HTTPS' => 'off']);
         $this->assertFalse($request->isSecure());
 
-        $request = new HttpRequest([], [], [], ['HTTPS' => 'on']);
+        $request = new HttpRequest([], [], [], [], ['HTTPS' => 'on']);
         $this->assertTrue($request->isSecure());
     }
 
@@ -259,7 +262,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
     {
         $server = ['QUERY_STRING' => '/over/there?name=ferret'];
 
-        $request = new HttpRequest([], [], [], $server);
+        $request = new HttpRequest([], [], [], [], $server);
 
         $this->assertEquals(
             $request->getQueryString(), 
@@ -272,7 +275,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetQueryStringException()
     {
-        $request = new HttpRequest([], [], [], []);
+        $request = new HttpRequest([], [], [], [], []);
         $request->getQueryString();
     }
 }

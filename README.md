@@ -14,14 +14,10 @@ patricklouys/http
 The Request class provides an object oriented wrapper around the PHP superglobals. This makes it possible to inject it as a dependency into any of your classes that require it.
 
 
-In most cases, you will want to use the `RequestBuilder` to create the `HttpRequest` from the superglobals.
-
 ```php
-use Http\RequestBuilder;
+use Http\HttpRequest;
 
-$requestBuilder = new RequestBuilder;
-
-$request = $requestBuilder->buildFromSuperglobals();
+$request = new HttpRequest($_GET, $_POST, $_COOKIE, $_FILES, $_SERVER);
 ```
 
 Now you can use the following methods on the `$request` object:
@@ -117,19 +113,18 @@ The cookie object can the be used with the `HttpRespone` methods `addCookie` and
 ```php
 <?php
 
-use Http\RequestBuilder;
-use Http\CookieBuilder;
+use Http\HttpRequest;
 use Http\HttpResponse;
+use Http\CookieBuilder;
 
 $loader = require_once __DIR__ . '/vendor/autoload.php';
 
-$requestBuilder = new RequestBuilder;
 $cookieBuilder = new CookieBuilder;
 
 // Disable the secure flag because this is only an example
 $cookieBuilder->setDefaultSecure(false);
 
-$request = $requestBuilder->buildFromSuperglobals();
+$request = new HttpRequest($_GET, $_POST, $_COOKIE, $_FILES, $_SERVER);
 $response = new HttpResponse;
 
 $content = '<h1>Hello World</h1>';
