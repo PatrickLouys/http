@@ -1,6 +1,8 @@
 ## Http Component
 
-[![Build Status](https://travis-ci.org/PatrickLouys/http.svg?branch=master)](https://travis-ci.org/PatrickLouys/http)
+[![Build Status](https://travis-ci.org/PatrickLouys/http.svg?branch=master)](https://travis-ci.org/PatrickLouys/http) [![Coverage Status](https://coveralls.io/repos/PatrickLouys/http/badge.png?branch=master)](https://coveralls.io/r/PatrickLouys/http?branch=master)
+
+[![Latest Stable Version](https://poser.pugx.org/patricklouys/http/v/stable.svg)](https://packagist.org/packages/patricklouys/http) [![Total Downloads](https://poser.pugx.org/patricklouys/http/downloads.svg)](https://packagist.org/packages/patricklouys/http) [![License](https://poser.pugx.org/patricklouys/http/license.svg)](https://packagist.org/packages/patricklouys/http)
 
 ## Installation
 
