@@ -1,5 +1,7 @@
 ## Http Component
 
+[![Build Status](https://travis-ci.org/PatrickLouys/http.svg?branch=master)](https://travis-ci.org/PatrickLouys/http)
+
 ## Installation
 
 You can use composer to install this component. The package is: 
