@@ -103,32 +103,61 @@ class HttpCookie implements Cookie
     {
         $parts = [
             $this->name . '=' . rawurlencode($this->value),
+            $this->getMaxAgeString(),
+            $this->getExpiresString(),
+            $this->getDomainString(),
+            $this->getPathString(),
+            $this->getSecureString(),
+            $this->getHttpOnlyString(),
         ];
 
+        $filteredParts = array_filter($parts);
+
+        return implode('; ', $filteredParts);
+    }
+
+    private function getMaxAgeString()
+    {
         if ($this->maxAge !== null) {
-            $parts[] = 'Max-Age='. $this->maxAge;
-            $parts[] = 'expires=' . date(
+            return 'Max-Age='. $this->maxAge;
+        }
+    }
+
+    private function getExpiresString()
+    {
+        if ($this->maxAge !== null) {
+            return 'expires=' . date(
                 "D, d-M-Y H:i:s", 
                 time() + $this->maxAge
             ) . ' GMT';
         }
+    }
 
+    private function getDomainString()
+    {
         if ($this->domain) {
-            $parts[] = "domain=$this->domain";
+            return "domain=$this->domain";
         }
+    }
 
+    private function getPathString()
+    {
         if ($this->path) {
-            $parts[] = "path=$this->path";
+            return "path=$this->path";
         }
+    }
 
+    private function getSecureString()
+    {
         if ($this->secure) {
-            $parts[] = 'secure';
+            return 'secure';
         }
+    }
 
+    private function getHttpOnlyString()
+    {
         if ($this->httpOnly) {
-            $parts[] = 'HttpOnly';
+            return 'HttpOnly';
         }
-
-        return implode('; ', $parts);
     }
 }
