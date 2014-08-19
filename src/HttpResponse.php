@@ -128,24 +128,11 @@ class HttpResponse implements Response
      */
     public function getHeaders()
     {
-        $headers = [];
-
-        $headers[] = trim(sprintf(
-            'HTTP/%s %s %s', 
-            $this->version, 
-            $this->statusCode, 
-            $this->statusText
-        ));
-
-        foreach ($this->headers as $name => $values) {
-            foreach ($values as $value) {
-                $headers[] = "$name: $value";
-            }
-        }
-
-        foreach ($this->cookies as $cookie) {
-            $headers[] = 'Set-Cookie: ' . $cookie->getHeaderString();
-        }
+        $headers = array_merge(
+            $this->getRequestLineHeaders(),
+            $this->getStandardHeaders(),
+            $this->getCookieHeaders()
+        );
 
         return $headers;
     }
@@ -205,5 +192,45 @@ class HttpResponse implements Response
     {
         $this->setHeader('Location', $url);
         $this->setStatusCode(301);
+    }
+
+    private function getRequestLineHeaders()
+    {
+        $headers = [];
+
+        $requestLine = sprintf(
+            'HTTP/%s %s %s', 
+            $this->version, 
+            $this->statusCode, 
+            $this->statusText
+        );
+
+        $headers[] = trim($requestLine);
+
+        return $headers;
+    }
+
+    private function getStandardHeaders()
+    {
+        $headers = [];
+
+        foreach ($this->headers as $name => $values) {
+            foreach ($values as $value) {
+                $headers[] = "$name: $value";
+            }
+        }
+
+        return $headers;
+    }
+
+    private function getCookieHeaders()
+    {
+        $headers = [];
+
+        foreach ($this->cookies as $cookie) {
+            $headers[] = 'Set-Cookie: ' . $cookie->getHeaderString();
+        }
+
+        return $headers;
     }
 }
