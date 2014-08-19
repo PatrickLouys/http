@@ -102,7 +102,7 @@ class HttpCookie implements Cookie
     public function getHeaderString()
     {
         $parts = [
-            $this->name . '=' . urlencode($this->value),
+            $this->name . '=' . rawurlencode($this->value),
         ];
 
         if ($this->maxAge !== null) {

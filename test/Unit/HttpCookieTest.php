@@ -19,7 +19,7 @@ class HttpCookieTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($cookie->getHeaderString(), 'name=newValue');
 
         $cookie->setValue('new Value"');
-        $this->assertEquals($cookie->getHeaderString(), 'name=new+Value%22');
+        $this->assertEquals($cookie->getHeaderString(), 'name=new%20Value%22');
     }
 
     public function testSetMaxAge()
