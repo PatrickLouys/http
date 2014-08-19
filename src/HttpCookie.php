@@ -126,7 +126,7 @@ class HttpCookie implements Cookie
     private function getExpiresString()
     {
         if ($this->maxAge !== null) {
-            return 'expires=' . date(
+            return 'expires=' . gmdate(
                 "D, d-M-Y H:i:s", 
                 time() + $this->maxAge
             ) . ' GMT';
