@@ -162,6 +162,27 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
         $request->getMethod();
     }
 
+    public function testGetUri()
+    {
+        $server = ['REQUEST_URI' => '/test'];
+
+        $request = new HttpRequest([], [], [], [], $server);
+
+        $this->assertEquals(
+            $request->getUri(), 
+            $server['REQUEST_URI']
+        );
+    }
+
+    /**
+     * @expectedException Http\MissingRequestMetaVariableException
+     */
+    public function testGetUriException()
+    {
+        $request = new HttpRequest([], [], [], [], []);
+        $request->getUri();
+    }
+
     public function testGetHttpAccept()
     {
         $server = ['HTTP_ACCEPT' => 'Accept: audio/*; q=0.2, audio/basic'];

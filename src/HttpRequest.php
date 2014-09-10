@@ -101,6 +101,17 @@ class HttpRequest implements Request
     }
 
     /**
+     * The URI which was given in order to access this page
+     * 
+     * @return string
+     * @throws MissingRequestMetaVariableException
+     */
+    public function getUri()
+    {
+        return $this->getServerVariable('REQUEST_URI');
+    }
+
+    /**
      * Which request method was used to access the page;
      * i.e. 'GET', 'HEAD', 'POST', 'PUT'. 
      * 
