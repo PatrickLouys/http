@@ -164,6 +164,15 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
 
     public function testGetUri()
     {
+        $server = ['REQUEST_URI' => '/test?abc=def'];
+
+        $request = new HttpRequest([], [], [], [], $server);
+
+        $this->assertEquals(
+            $request->getUri(), 
+            $server['REQUEST_URI']
+        );
+
         $server = ['REQUEST_URI' => '/test'];
 
         $request = new HttpRequest([], [], [], [], $server);
@@ -181,6 +190,27 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
     {
         $request = new HttpRequest([], [], [], [], []);
         $request->getUri();
+    }
+
+    public function testGetPath()
+    {
+        $server = ['REQUEST_URI' => '/test?abc=def'];
+
+        $request = new HttpRequest([], [], [], [], $server);
+
+        $this->assertEquals(
+            $request->getPath(), 
+            '/test'
+        );
+
+        $server = ['REQUEST_URI' => '/test'];
+
+        $request = new HttpRequest([], [], [], [], $server);
+
+        $this->assertEquals(
+            $request->getPath(), 
+            '/test'
+        );
     }
 
     public function testGetHttpAccept()

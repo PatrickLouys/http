@@ -112,6 +112,16 @@ class HttpRequest implements Request
     }
 
     /**
+     * Return just the path
+     * 
+     * @return string
+     */
+    public function getPath()
+    {
+        return strtok($this->getServerVariable('REQUEST_URI'), '?');
+    }
+
+    /**
      * Which request method was used to access the page;
      * i.e. 'GET', 'HEAD', 'POST', 'PUT'. 
      * 
