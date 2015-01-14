@@ -68,14 +68,17 @@ class HttpCookie implements Cookie
     public function setSecure($secure)
     {
         if (!is_bool($secure)) {
-            throw new InvalidArgumentException('$secure must be a string');
+            throw new InvalidArgumentException('$secure must be a boolean');
         }
         $this->secure = $secure;
     }
 
     public function setHttpOnly($httpOnly)
     {
-        $this->httpOnly = (bool) $httpOnly;
+        if (!is_bool($httpOnly)) {
+            throw new InvalidArgumentException('$httpOnly must be a boolean');
+        }
+        $this->httpOnly = $httpOnly;
     }
 
     public function getHeaderString()
@@ -105,7 +108,7 @@ class HttpCookie implements Cookie
 
     private function getExpiresString()
     {
-        if ($this->maxAge !== null) {
+        if ($this->maxAge === null) {
             return null;
         }
         $date = gmdate("D, d-M-Y H:i:s", time() + $this->maxAge);
@@ -122,7 +125,7 @@ class HttpCookie implements Cookie
 
     private function getPathString()
     {
-        if ($this->path) {
+        if (!$this->path) {
             return null;
         }
         return "path=$this->path";
@@ -130,7 +133,7 @@ class HttpCookie implements Cookie
 
     private function getSecureString()
     {
-        if ($this->secure) {
+        if (!$this->secure) {
             return null;
         }
         return 'secure';
@@ -138,7 +141,7 @@ class HttpCookie implements Cookie
 
     private function getHttpOnlyString()
     {
-        if ($this->httpOnly) {
+        if (!$this->httpOnly) {
             return null;
         }
         return 'HttpOnly';
