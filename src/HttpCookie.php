@@ -2,6 +2,8 @@
 
 namespace Http;
 
+use InvalidArgumentException;
+
 class HttpCookie implements Cookie
 {
     private $name;
@@ -14,91 +16,68 @@ class HttpCookie implements Cookie
 
     public function __construct($name, $value)
     {
-        $this->name = (string) $name;
-        $this->value = (string) $value;
+        if (!is_string($name)) {
+            throw new InvalidArgumentException('$name must be a string');
+        }
+
+        if (!is_string($value)) {
+            throw new InvalidArgumentException('$value must be a string');
+        }
+
+        $this->name = $name;
+        $this->value = $value;
     }
 
-    /**
-     * Returns the cookie name.
-     * 
-     * @return string
-     */
     public function getName()
     {
         return $this->name;
     }
 
-    /**
-     * Sets the cookie value.
-     * 
-     * @param  string $value
-     * @return void
-     */
     public function setValue($value)
     {
-        $this->value = (string) $value;
+        if (!is_string($value)) {
+            throw new InvalidArgumentException('$value must be a string');
+        }
+        $this->value = $value;
     }
 
-    /**
-     * Sets the cookie max age in seconds.
-     * 
-     * @param  integer $seconds
-     * @return void
-     */
     public function setMaxAge($seconds)
     {
-        $this->maxAge = (int) $seconds;
+        if (!is_int($seconds)) {
+            throw new InvalidArgumentException('$seconds must be an int');
+        }
+        $this->maxAge = $seconds;
     }
 
-    /**
-     * Sets the cookie domain.
-     * 
-     * @param  string $domain
-     * @return void
-     */
     public function setDomain($domain)
     {
-        $this->domain = (string) $domain;
+        if (!is_string($domain)) {
+            throw new InvalidArgumentException('$domain must be a string');
+        }
+        $this->domain = $domain;
     }
 
-    /**
-     * Sets the cookie path.
-     * 
-     * @param  string $path
-     * @return void
-     */
     public function setPath($path)
     {
-        $this->path = (string) $path;
+        if (!is_string($path)) {
+            throw new InvalidArgumentException('$path must be a string');
+        }
+        $this->path = $path;
     }
 
-    /**
-     * Sets the cookie secure flag.
-     * 
-     * @param  boolean $secure
-     * @return void
-     */
     public function setSecure($secure)
     {
-        $this->secure = (bool) $secure;
+        if (!is_bool($secure)) {
+            throw new InvalidArgumentException('$secure must be a string');
+        }
+        $this->secure = $secure;
     }
 
-    /**
-     * Sets the cookie httpOnly flag.
-     * 
-     * @param  boolean $httpOnly
-     * @return void
-     */
     public function setHttpOnly($httpOnly)
     {
         $this->httpOnly = (bool) $httpOnly;
     }
 
-    /**
-     * Returns the cookie HTTP header string.
-     * 
-     * @return string
-     */
     public function getHeaderString()
     {
         $parts = [
@@ -118,46 +97,50 @@ class HttpCookie implements Cookie
 
     private function getMaxAgeString()
     {
-        if ($this->maxAge !== null) {
-            return 'Max-Age='. $this->maxAge;
+        if ($this->maxAge === null) {
+            return null;
         }
+        return 'Max-Age='. $this->maxAge;
     }
 
     private function getExpiresString()
     {
         if ($this->maxAge !== null) {
-            return 'expires=' . gmdate(
-                "D, d-M-Y H:i:s", 
-                time() + $this->maxAge
-            ) . ' GMT';
+            return null;
         }
+        $date = gmdate("D, d-M-Y H:i:s", time() + $this->maxAge);
+        return "expires=$date GMT";
     }
 
     private function getDomainString()
     {
-        if ($this->domain) {
-            return "domain=$this->domain";
+        if (!$this->domain) {
+            return null;
         }
+        return "domain=$this->domain";
     }
 
     private function getPathString()
     {
         if ($this->path) {
-            return "path=$this->path";
+            return null;
         }
+        return "path=$this->path";
     }
 
     private function getSecureString()
     {
         if ($this->secure) {
-            return 'secure';
+            return null;
         }
+        return 'secure';
     }
 
     private function getHttpOnlyString()
     {
         if ($this->httpOnly) {
-            return 'HttpOnly';
+            return null;
         }
+        return 'HttpOnly';
     }
 }
