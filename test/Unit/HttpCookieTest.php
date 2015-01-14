@@ -6,6 +6,18 @@ use Http\HttpCookie;
 
 class HttpCookieTest extends \PHPUnit_Framework_TestCase
 {
+    public function testConstructorWrongTypeFirstArg()
+    {
+        $this->setExpectedException('InvalidArgumentException');
+        $cookie = new HttpCookie(123, 'value');
+    }
+
+    public function testConstructorWrongTypeSecondArg()
+    {
+        $this->setExpectedException('InvalidArgumentException');
+        $cookie = new HttpCookie('name', 123);
+    }
+
     public function testGetName()
     {
         $cookie = new HttpCookie('name', 'value');
@@ -22,14 +34,31 @@ class HttpCookieTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($cookie->getHeaderString(), 'name=new%20Value%22');
     }
 
+    public function testSetValueWrongType()
+    {
+        $this->setExpectedException('InvalidArgumentException');
+
+        $cookie = new HttpCookie('name', 'value');
+        $cookie->setValue(123);
+    }
+
     public function testSetMaxAge()
     {
         $cookie = new HttpCookie('name', 'value');
         $cookie->setMaxAge(100);
+        
         $this->assertStringMatchesFormat(
             'name=value; Max-Age=100; expires=%s GMT', 
             $cookie->getHeaderString()
         );
+    }
+
+    public function testSetMaxAgeWrongType()
+    {
+        $this->setExpectedException('InvalidArgumentException');
+
+        $cookie = new HttpCookie('name', 'value');
+        $cookie->setMaxAge('100');
     }
 
     public function testSetDomain()
@@ -42,6 +71,14 @@ class HttpCookieTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testSetDomainWrongType()
+    {
+        $this->setExpectedException('InvalidArgumentException');
+
+        $cookie = new HttpCookie('name', 'value');
+        $cookie->setDomain(100);
+    }
+
     public function testSetPath()
     {
         $cookie = new HttpCookie('name', 'value');
@@ -50,6 +87,14 @@ class HttpCookieTest extends \PHPUnit_Framework_TestCase
             'name=value; path=/test', 
             $cookie->getHeaderString()
         );
+    }
+
+    public function testSetPathWrongType()
+    {
+        $this->setExpectedException('InvalidArgumentException');
+
+        $cookie = new HttpCookie('name', 'value');
+        $cookie->setPath(100);
     }
 
     public function testSetSetSecure()
@@ -68,6 +113,14 @@ class HttpCookieTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testSetSecureWrongType()
+    {
+        $this->setExpectedException('InvalidArgumentException');
+
+        $cookie = new HttpCookie('name', 'value');
+        $cookie->setSecure(1);
+    }
+
     public function testSetHttpOnly()
     {
         $cookie = new HttpCookie('name', 'value');
@@ -82,5 +135,13 @@ class HttpCookieTest extends \PHPUnit_Framework_TestCase
             'name=value', 
             $cookie->getHeaderString()
         );
+    }
+
+    public function testSetHttpOnlyWrongType()
+    {
+        $this->setExpectedException('InvalidArgumentException');
+
+        $cookie = new HttpCookie('name', 'value');
+        $cookie->setHttpOnly(1);
     }
 }
