@@ -12,9 +12,6 @@ interface Request
     public function getFiles();
     public function getMethod();
     public function getHttpAccept();
-    public function getReferer();
-    public function getUserAgent();
-    public function getIpAddress();
     public function isSecure();
     public function getQueryString();
 }

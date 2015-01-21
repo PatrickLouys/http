@@ -145,40 +145,6 @@ class HttpRequest implements Request
     }
 
     /**
-     * The address of the page (if any) which referred the user agent to the 
-     * current page.
-     * 
-     * @return string
-     * @throws MissingRequestMetaVariableException
-     */
-    public function getReferer()
-    {
-        return $this->getServerVariable('HTTP_REFERER');
-    }
-
-    /**
-     * Content of the User-Agent header from the request, if there is one.
-     * 
-     * @return string
-     * @throws MissingRequestMetaVariableException
-     */
-    public function getUserAgent()
-    {
-        return $this->getServerVariable('HTTP_USER_AGENT');
-    }
-
-    /**
-     * The IP address from which the user is viewing the current page.
-     * 
-     * @return string
-     * @throws MissingRequestMetaVariableException
-     */
-    public function getIpAddress()
-    {
-        return $this->getServerVariable('REMOTE_ADDR');
-    }
-
-    /**
      * Checks to see whether the current request is using HTTPS.
      * 
      * @return boolean

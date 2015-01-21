@@ -234,69 +234,6 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
         $request->getHttpAccept();
     }
 
-    public function testGetReferer()
-    {
-        $server = ['HTTP_REFERER' => 'http://www.example.com/abc?s=a&b=c'];
-
-        $request = new HttpRequest([], [], [], [], $server);
-
-        $this->assertEquals(
-            $request->getReferer(), 
-            $server['HTTP_REFERER']
-        );
-    }
-
-    /**
-     * @expectedException Http\MissingRequestMetaVariableException
-     */
-    public function testGetRefererException()
-    {
-        $request = new HttpRequest([], [], [], [], []);
-        $request->getReferer();
-    }
-
-    public function testGetUserAgent()
-    {
-        $server = ['HTTP_USER_AGENT' => 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:30.0) Gecko/20100101 Firefox/30.0'];
-
-        $request = new HttpRequest([], [], [], [], $server);
-
-        $this->assertEquals(
-            $request->getUserAgent(), 
-            $server['HTTP_USER_AGENT']
-        );
-    }
-
-    /**
-     * @expectedException Http\MissingRequestMetaVariableException
-     */
-    public function testGetUserAgentException()
-    {
-        $request = new HttpRequest([], [], [], [], []);
-        $request->getUserAgent();
-    }
-
-    public function testGetIpAddress()
-    {
-        $server = ['REMOTE_ADDR' => '127.0.0.1'];
-
-        $request = new HttpRequest([], [], [], [], $server);
-
-        $this->assertEquals(
-            $request->getIpAddress(), 
-            $server['REMOTE_ADDR']
-        );
-    }
-
-    /**
-     * @expectedException Http\MissingRequestMetaVariableException
-     */
-    public function testGetIpAddressException()
-    {
-        $request = new HttpRequest([], [], [], [], []);
-        $request->getIpAddress();
-    }
-
     public function testIsSecure()
     {
         $request = new HttpRequest([], [], [], [], []);
