@@ -79,11 +79,13 @@ $response->getContent();
 They can be used like this:
 ```php
 foreach ($response->getHeaders() as $header) {
-    header($header);
+    header($header, false);
 }
 
 echo $response->getContent();
 ```
+
+**The second parameter of `header` must be false. Otherwise existing headers will be overwritten.**
 
 ### Cookies
 
