@@ -94,6 +94,15 @@ class HttpResponse implements Response
     }
 
     /**
+     * Returns the HTTP status code
+     * @return int
+     */
+    public function getStatusCode()
+    {
+        return $this->statusCode;
+    }
+
+    /**
      * Adds a header with the given name.
      * 
      * @param  string $name
