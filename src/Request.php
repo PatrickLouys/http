@@ -10,6 +10,8 @@ interface Request
     public function getParameters();
     public function getCookies();
     public function getFiles();
+    public function getUri();
+    public function getPath();
     public function getMethod();
     public function getHttpAccept();
     public function getReferer();
