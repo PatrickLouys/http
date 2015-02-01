@@ -5,6 +5,7 @@ namespace Http;
 interface Response
 {
     public function setStatusCode($statusCode, $statusText = null);
+    public function getStatusCode();
     public function addHeader($name, $value);
     public function setHeader($name, $value);
     public function getHeaders();
