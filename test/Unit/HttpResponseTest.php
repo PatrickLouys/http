@@ -93,7 +93,7 @@ class MockCookie implements \Http\Cookie
 
     public function __construct($name)
     {
-        $this->name = (string)$name;
+        $this->name = (string) $name;
     }
 
     public function getName()
@@ -103,12 +103,12 @@ class MockCookie implements \Http\Cookie
 
     public function setValue($value)
     {
-        $this->value = (string)$value;
+        $this->value = (string) $value;
     }
 
     public function setMaxAge($seconds)
     {
-        $this->maxAge = (int)$seconds;
+        $this->maxAge = (int) $seconds;
     }
 
     public function setDomain($domain)
