@@ -110,7 +110,7 @@ $cookie->setSecure($secure);
 $cookie->setHttpOnly($httpOnly);
 ```
 
-The cookie object can the be used with the `HttpRespone` methods `addCookie` and `deleteCookie`. 
+The cookie object can the be used with the `HttpResponse` methods `addCookie` and `deleteCookie`. 
 
 ### Example
 
