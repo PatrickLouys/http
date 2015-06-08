@@ -71,7 +71,7 @@ class HttpRequest implements Request
     }
 
     /**
-     * Returns a File Iterator.
+     * Returns all parameters.
      * 
      * @return array
      */
