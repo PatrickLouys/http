@@ -33,12 +33,12 @@ class HttpRequest implements Request
      */
     public function getParameter($key, $defaultValue = null)
     {
-        if (array_key_exists($key, $this->getParameters)) {
-            return $this->getParameters[$key];
-        }
-        
         if (array_key_exists($key, $this->postParameters)) {
             return $this->postParameters[$key];
+        }
+        
+        if (array_key_exists($key, $this->getParameters)) {
+            return $this->getParameters[$key];
         }
         
         return $defaultValue;
