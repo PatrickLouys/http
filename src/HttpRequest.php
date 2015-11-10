@@ -4,7 +4,8 @@ namespace Http;
 
 class HttpRequest implements Request
 {
-    protected $parameters;
+    protected $get;
+    protected $post;
     protected $server;
     protected $files;
     protected $cookies;
@@ -16,28 +17,45 @@ class HttpRequest implements Request
         array $files,
         array $server
     ) {
-        $this->parameters = array_merge($get, $post);
+        $this->get = $get;
+        $this->post = $post;
         $this->cookies = $cookies;
         $this->files = $files;
         $this->server = $server;
     }
 
     /**
-     * Returns a parameter value or a default value if none is set.
+     * Returns a query parameter value or a default value if none is set.
      * 
      * @param  string $key
      * @param  string $defaultValue (optional)
      * @return string
      */
-    public function getParameter($key, $defaultValue = null)
+    public function getQueryParameter($key, $defaultValue = null)
     {
-        if (array_key_exists($key, $this->parameters)) {
-            return $this->parameters[$key];
+        if (array_key_exists($key, $this->get)) {
+            return $this->get[$key];
         }
 
         return $defaultValue;
     }
 
+    /**
+     * Returns a body parameter value or a default value if none is set.
+     * 
+     * @param  string $key
+     * @param  string $defaultValue (optional)
+     * @return string
+     */
+    public function getBodyParameter($key, $defaultValue = null)
+    {
+        if (array_key_exists($key, $this->post)) {
+            return $this->post[$key];
+        }
+
+        return $defaultValue;
+    }
+    
     /**
      * Returns a file value or a default value if none is set.
      * 
