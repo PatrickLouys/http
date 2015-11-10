@@ -17,8 +17,8 @@ class HttpRequest implements Request
         array $files,
         array $server
     ) {
-        $this->get = $getParameters;
-        $this->post = $postParameters;
+        $this->getParameters = $get;
+        $this->postParameters = $post;
         $this->cookies = $cookies;
         $this->files = $files;
         $this->server = $server;
