@@ -33,8 +33,6 @@ class HttpRequest implements Request
      */
     public function getParameter($key, $defaultValue = null)
     {
-        $parameters = array_merge($this->getParameters, $this->postParameters);
-        
         if (array_key_exists($key, $this->getParameters)) {
             return $this->getParameters[$key];
         }
