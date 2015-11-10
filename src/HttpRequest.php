@@ -4,6 +4,7 @@ namespace Http;
 
 class HttpRequest implements Request
 {
+    protected $parameters;
     protected $get;
     protected $post;
     protected $server;
@@ -17,11 +18,27 @@ class HttpRequest implements Request
         array $files,
         array $server
     ) {
+        $this->parameters = array_merge($get, $post);
         $this->get = $get;
         $this->post = $post;
         $this->cookies = $cookies;
         $this->files = $files;
         $this->server = $server;
+    }
+    
+    /**
+     * Returns a parameter value or a default value if none is set.
+     * 
+     * @param  string $key
+     * @param  string $defaultValue (optional)
+     * @return string
+     */
+    public function getParameter($key, $defaultValue = null)
+    {
+        if (array_key_exists($key, $this->parameters)) {
+            return $this->parameters[$key];
+        }
+        return $defaultValue;
     }
 
     /**
@@ -97,6 +114,27 @@ class HttpRequest implements Request
     {
         return $this->parameters;
     }
+    
+    /**
+     * Returns all query parameters.
+     * 
+     * @return array
+     */
+    public function getQueryParameters()
+    {
+        return $this->get;
+    }
+    
+    /**
+     * Returns all body parameters.
+     * 
+     * @return array
+     */
+    public function getBodyParameters()
+    {
+        return $this->post;
+    }
+    
 
     /**
      * Returns a Cookie Iterator.
