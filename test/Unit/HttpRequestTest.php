@@ -40,7 +40,59 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
 
         $this->assertNull($request->getParameter('key3'));
     }
+    
+    public function testGetQueryParameter()
+    {
+        $get = [
+            'key1' => 'value1',
+        ];
 
+        $request = new HttpRequest($get, [], [], [], []);
+
+        $this->assertEquals(
+            $request->getQueryParameter('key1'), 
+            $get['key1']
+        );
+
+        $this->assertEquals(
+            $request->getQueryParameter('key1', 'defaultValue'), 
+            $get['key1']
+        );
+
+        $this->assertEquals(
+            $request->getQueryParameter('key3', 'defaultValue'), 
+            'defaultValue'
+        );
+
+        $this->assertNull($request->getQueryParameter('key3'));
+    }
+
+    public function testGetBodyParameter()
+    {
+        $post = [
+            'key1' => 'value1',
+        ];
+
+        $request = new HttpRequest([], $post, [], [], []);
+
+        $this->assertEquals(
+            $request->getBodyParameter('key1'), 
+            $post['key1']
+        );
+
+        $this->assertEquals(
+            $request->getBodyParameter('key1', 'defaultValue'), 
+            $post['key1']
+        );
+
+        $this->assertEquals(
+            $request->getBodyParameter('key3', 'defaultValue'), 
+            'defaultValue'
+        );
+
+        $this->assertNull($request->getQueryParameter('key3'));
+    }
+    
     public function testGetCookie()
     {
         $cookies = [
@@ -114,6 +166,30 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(
             $request->getParameters(), 
             $get
+        );
+    }
+    
+    public function testGetQueryParameters()
+    {
+        $get = ['key1' => 'value1'];
+
+        $request = new HttpRequest($get, [], [], [], []);
+
+        $this->assertEquals(
+            $request->getQueryParameters(), 
+            $get
+        );
+    }
+    
+    public function testGetBodyParameters()
+    {
+        $post = ['key1' => 'value1'];
+
+        $request = new HttpRequest([], $post, [], [], []);
+
+        $this->assertEquals(
+            $request->getBodyParameters(), 
+            $post
         );
     }
 
