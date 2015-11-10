@@ -4,9 +4,8 @@ namespace Http;
 
 class HttpRequest implements Request
 {
-    protected $parameters;
-    protected $get;
-    protected $post;
+    protected $getParameters;
+    protected $postParameters;
     protected $server;
     protected $files;
     protected $cookies;
@@ -18,9 +17,8 @@ class HttpRequest implements Request
         array $files,
         array $server
     ) {
-        $this->parameters = array_merge($get, $post);
-        $this->get = $get;
-        $this->post = $post;
+        $this->get = $getParameters;
+        $this->post = $postParameters;
         $this->cookies = $cookies;
         $this->files = $files;
         $this->server = $server;
@@ -35,9 +33,16 @@ class HttpRequest implements Request
      */
     public function getParameter($key, $defaultValue = null)
     {
-        if (array_key_exists($key, $this->parameters)) {
-            return $this->parameters[$key];
+        $parameters = array_merge($this->getParameters, $this->postParameters);
+        
+        if (array_key_exists($key, $this->getParameters)) {
+            return $this->getParameters[$key];
         }
+        
+        if (array_key_exists($key, $this->postParameters)) {
+            return $this->postParameters[$key];
+        }
+        
         return $defaultValue;
     }
 
@@ -50,8 +55,8 @@ class HttpRequest implements Request
      */
     public function getQueryParameter($key, $defaultValue = null)
     {
-        if (array_key_exists($key, $this->get)) {
-            return $this->get[$key];
+        if (array_key_exists($key, $this->getParameters)) {
+            return $this->getParameters[$key];
         }
 
         return $defaultValue;
@@ -66,8 +71,8 @@ class HttpRequest implements Request
      */
     public function getBodyParameter($key, $defaultValue = null)
     {
-        if (array_key_exists($key, $this->post)) {
-            return $this->post[$key];
+        if (array_key_exists($key, $this->postParameters)) {
+            return $this->postParameters[$key];
         }
 
         return $defaultValue;
@@ -112,7 +117,7 @@ class HttpRequest implements Request
      */
     public function getParameters()
     {
-        return $this->parameters;
+        return array_merge($this->getParameters, $this->postParameters);
     }
     
     /**
@@ -122,7 +127,7 @@ class HttpRequest implements Request
      */
     public function getQueryParameters()
     {
-        return $this->get;
+        return $this->getParameters;
     }
     
     /**
@@ -132,7 +137,7 @@ class HttpRequest implements Request
      */
     public function getBodyParameters()
     {
-        return $this->post;
+        return $this->postParameters;
     }
     
 
