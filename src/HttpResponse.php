@@ -76,7 +76,7 @@ class HttpResponse implements Response
 
     /**
      * Sets the HTTP status code.
-     * 
+     *
      * @param  integer $statusCode
      * @param  string  $statusText (optional)
      * @return void
@@ -104,7 +104,7 @@ class HttpResponse implements Response
 
     /**
      * Adds a header with the given name.
-     * 
+     *
      * @param  string $name
      * @param  string $value
      * @return void
@@ -116,9 +116,9 @@ class HttpResponse implements Response
 
     /**
      * Sets a new header for the given name.
-     * 
+     *
      * Replaces all headers with the same names.
-     * 
+     *
      * @param  string $name
      * @param  string $value
      * @return void
@@ -132,7 +132,7 @@ class HttpResponse implements Response
 
     /**
      * Returns an array with the HTTP headers.
-     * 
+     *
      * @return array
      */
     public function getHeaders()
@@ -148,7 +148,7 @@ class HttpResponse implements Response
 
     /**
      * Adds a new cookie.
-     * 
+     *
      * @param  Cookie $cookie
      * @return void
      */
@@ -159,7 +159,7 @@ class HttpResponse implements Response
 
     /**
      * Deletes a cookie.
-     * 
+     *
      * @param  Cookie $cookie
      * @return void
      */
@@ -172,7 +172,7 @@ class HttpResponse implements Response
 
     /**
      * Sets the body content.
-     * 
+     *
      * @param  string $content
      * @return void
      */
@@ -183,7 +183,7 @@ class HttpResponse implements Response
 
     /**
      * Returns the body content.
-     * 
+     *
      * @return string
      */
     public function getContent()
@@ -193,7 +193,7 @@ class HttpResponse implements Response
 
     /**
      * Sets the headers for a redirect.
-     * 
+     *
      * @param  string $url
      * @return void
      */
@@ -208,9 +208,9 @@ class HttpResponse implements Response
         $headers = [];
 
         $requestLine = sprintf(
-            'HTTP/%s %s %s', 
-            $this->version, 
-            $this->statusCode, 
+            'HTTP/%s %s %s',
+            $this->version,
+            $this->statusCode,
             $this->statusText
         );
 
