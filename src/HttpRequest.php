@@ -23,10 +23,10 @@ class HttpRequest implements Request
         $this->files = $files;
         $this->server = $server;
     }
-    
+
     /**
      * Returns a parameter value or a default value if none is set.
-     * 
+     *
      * @param  string $key
      * @param  string $defaultValue (optional)
      * @return string
@@ -36,17 +36,17 @@ class HttpRequest implements Request
         if (array_key_exists($key, $this->postParameters)) {
             return $this->postParameters[$key];
         }
-        
+
         if (array_key_exists($key, $this->getParameters)) {
             return $this->getParameters[$key];
         }
-        
+
         return $defaultValue;
     }
 
     /**
      * Returns a query parameter value or a default value if none is set.
-     * 
+     *
      * @param  string $key
      * @param  string $defaultValue (optional)
      * @return string
@@ -62,7 +62,7 @@ class HttpRequest implements Request
 
     /**
      * Returns a body parameter value or a default value if none is set.
-     * 
+     *
      * @param  string $key
      * @param  string $defaultValue (optional)
      * @return string
@@ -75,10 +75,10 @@ class HttpRequest implements Request
 
         return $defaultValue;
     }
-    
+
     /**
      * Returns a file value or a default value if none is set.
-     * 
+     *
      * @param  string $key
      * @param  string $defaultValue (optional)
      * @return string
@@ -94,7 +94,7 @@ class HttpRequest implements Request
 
     /**
      * Returns a cookie value or a default value if none is set.
-     * 
+     *
      * @param  string $key
      * @param  string $defaultValue (optional)
      * @return string
@@ -110,38 +110,38 @@ class HttpRequest implements Request
 
     /**
      * Returns all parameters.
-     * 
+     *
      * @return array
      */
     public function getParameters()
     {
         return array_merge($this->getParameters, $this->postParameters);
     }
-    
+
     /**
      * Returns all query parameters.
-     * 
+     *
      * @return array
      */
     public function getQueryParameters()
     {
         return $this->getParameters;
     }
-    
+
     /**
      * Returns all body parameters.
-     * 
+     *
      * @return array
      */
     public function getBodyParameters()
     {
         return $this->postParameters;
     }
-    
+
 
     /**
      * Returns a Cookie Iterator.
-     * 
+     *
      * @return array
      */
     public function getCookies()
@@ -151,7 +151,7 @@ class HttpRequest implements Request
 
     /**
      * Returns a File Iterator.
-     * 
+     *
      * @return array
      */
     public function getFiles()
@@ -161,7 +161,7 @@ class HttpRequest implements Request
 
     /**
      * The URI which was given in order to access this page
-     * 
+     *
      * @return string
      * @throws MissingRequestMetaVariableException
      */
@@ -172,7 +172,7 @@ class HttpRequest implements Request
 
     /**
      * Return just the path
-     * 
+     *
      * @return string
      */
     public function getPath()
@@ -182,8 +182,8 @@ class HttpRequest implements Request
 
     /**
      * Which request method was used to access the page;
-     * i.e. 'GET', 'HEAD', 'POST', 'PUT'. 
-     * 
+     * i.e. 'GET', 'HEAD', 'POST', 'PUT'.
+     *
      * @return string
      * @throws MissingRequestMetaVariableException
      */
@@ -194,7 +194,7 @@ class HttpRequest implements Request
 
     /**
      * Contents of the Accept: header from the current request, if there is one.
-     * 
+     *
      * @return string
      * @throws MissingRequestMetaVariableException
      */
@@ -204,9 +204,9 @@ class HttpRequest implements Request
     }
 
     /**
-     * The address of the page (if any) which referred the user agent to the 
+     * The address of the page (if any) which referred the user agent to the
      * current page.
-     * 
+     *
      * @return string
      * @throws MissingRequestMetaVariableException
      */
@@ -217,7 +217,7 @@ class HttpRequest implements Request
 
     /**
      * Content of the User-Agent header from the request, if there is one.
-     * 
+     *
      * @return string
      * @throws MissingRequestMetaVariableException
      */
@@ -228,7 +228,7 @@ class HttpRequest implements Request
 
     /**
      * The IP address from which the user is viewing the current page.
-     * 
+     *
      * @return string
      * @throws MissingRequestMetaVariableException
      */
@@ -239,7 +239,7 @@ class HttpRequest implements Request
 
     /**
      * Checks to see whether the current request is using HTTPS.
-     * 
+     *
      * @return boolean
      */
     public function isSecure()
@@ -251,7 +251,7 @@ class HttpRequest implements Request
 
     /**
      * The query string, if any, via which the page was accessed.
-     * 
+     *
      * @return string
      * @throws MissingRequestMetaVariableException
      */
@@ -265,7 +265,7 @@ class HttpRequest implements Request
         if (!array_key_exists($key, $this->server)) {
             throw new MissingRequestMetaVariableException($key);
         }
-        
+
         return $this->server[$key];
     }
 }

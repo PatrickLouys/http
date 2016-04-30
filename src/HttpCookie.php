@@ -20,7 +20,7 @@ class HttpCookie implements Cookie
 
     /**
      * Returns the cookie name.
-     * 
+     *
      * @return string
      */
     public function getName()
@@ -30,7 +30,7 @@ class HttpCookie implements Cookie
 
     /**
      * Sets the cookie value.
-     * 
+     *
      * @param  string $value
      * @return void
      */
@@ -41,7 +41,7 @@ class HttpCookie implements Cookie
 
     /**
      * Sets the cookie max age in seconds.
-     * 
+     *
      * @param  integer $seconds
      * @return void
      */
@@ -52,7 +52,7 @@ class HttpCookie implements Cookie
 
     /**
      * Sets the cookie domain.
-     * 
+     *
      * @param  string $domain
      * @return void
      */
@@ -63,7 +63,7 @@ class HttpCookie implements Cookie
 
     /**
      * Sets the cookie path.
-     * 
+     *
      * @param  string $path
      * @return void
      */
@@ -74,7 +74,7 @@ class HttpCookie implements Cookie
 
     /**
      * Sets the cookie secure flag.
-     * 
+     *
      * @param  boolean $secure
      * @return void
      */
@@ -85,7 +85,7 @@ class HttpCookie implements Cookie
 
     /**
      * Sets the cookie httpOnly flag.
-     * 
+     *
      * @param  boolean $httpOnly
      * @return void
      */
@@ -96,7 +96,7 @@ class HttpCookie implements Cookie
 
     /**
      * Returns the cookie HTTP header string.
-     * 
+     *
      * @return string
      */
     public function getHeaderString()
@@ -127,7 +127,7 @@ class HttpCookie implements Cookie
     {
         if ($this->maxAge !== null) {
             return 'expires=' . gmdate(
-                "D, d-M-Y H:i:s", 
+                "D, d-M-Y H:i:s",
                 time() + $this->maxAge
             ) . ' GMT';
         }
