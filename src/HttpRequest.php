@@ -138,6 +138,15 @@ class HttpRequest implements Request
         return $this->postParameters;
     }
 
+    /**
+    +     * Returns raw values from the read-only stream that allows you to read raw data from the request body.
+    +     *
+    +     * @return string
+    +     */
+    public function getRawBodyParameters()
+    {
+        return file_get_contents('php://input');
+    }
 
     /**
      * Returns a Cookie Iterator.
@@ -210,7 +219,7 @@ class HttpRequest implements Request
      * @return string
      * @throws MissingRequestMetaVariableException
      */
-    public function getReferer()
+    public function getReferrer()
     {
         return $this->getServerVariable('HTTP_REFERER');
     }
