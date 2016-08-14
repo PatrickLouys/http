@@ -139,10 +139,10 @@ class HttpRequest implements Request
     }
 
     /**
-    +     * Returns raw values from the read-only stream that allows you to read raw data from the request body.
-    +     *
-    +     * @return string
-    +     */
+    + Returns raw values from the read-only stream that allows you to read raw data from the request body.
+    *
+    * @return string
+    */
     public function getRawBodyParameters()
     {
         return file_get_contents('php://input');
