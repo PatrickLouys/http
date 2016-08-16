@@ -15,13 +15,15 @@ class HttpRequest implements Request
         array $post,
         array $cookies,
         array $files,
-        array $server
+        array $server,
+        $inputStream = ''
     ) {
         $this->getParameters = $get;
         $this->postParameters = $post;
         $this->cookies = $cookies;
         $this->files = $files;
         $this->server = $server;
+        $this->inputStream = $inputStream;
     }
 
     /**
