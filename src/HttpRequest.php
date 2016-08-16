@@ -147,7 +147,7 @@ class HttpRequest implements Request
     */
     public function getRawBodyParameters()
     {
-        return file_get_contents('php://input');
+        return $this->inputStream;
     }
 
     /**
