@@ -219,7 +219,7 @@ class HttpRequest implements Request
      * @return string
      * @throws MissingRequestMetaVariableException
      */
-    public function getReferrer()
+    public function getReferer()
     {
         return $this->getServerVariable('HTTP_REFERER');
     }

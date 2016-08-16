@@ -35,7 +35,7 @@ $request->getCookies();
 $request->getFiles();
 $request->getMethod();
 $request->getHttpAccept();
-$request->getReferrer();
+$request->getReferer();
 $request->getUserAgent();
 $request->getIpAddress();
 $request->isSecure();

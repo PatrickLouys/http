@@ -310,14 +310,14 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
         $request->getHttpAccept();
     }
 
-    public function testGetReferrer()
+    public function testGetReferer()
     {
         $server = ['HTTP_REFERER' => 'http://www.example.com/abc?s=a&b=c'];
 
         $request = new HttpRequest([], [], [], [], $server);
 
         $this->assertEquals(
-            $request->getReferrer(),
+            $request->getReferer(),
             $server['HTTP_REFERER']
         );
     }
@@ -325,10 +325,10 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException Http\MissingRequestMetaVariableException
      */
-    public function testGetReferrerException()
+    public function testGetRefererException()
     {
         $request = new HttpRequest([], [], [], [], []);
-        $request->getReferrer();
+        $request->getReferer();
     }
 
     public function testGetUserAgent()
