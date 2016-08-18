@@ -12,7 +12,7 @@ interface Request
     public function getParameters();
     public function getQueryParameters();
     public function getBodyParameters();
-    public function getRawBodyParameters();
+    public function getRawBody();
     public function getCookies();
     public function getFiles();
     public function getUri();

@@ -93,14 +93,14 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($request->getQueryParameter('key3'));
     }
 
-    public function testGetRawBodyParameter()
+    public function testGetRawBody()
     {
         $post = "{'key1' => 'value1'}";
 
         $request = new HttpRequest([], [], [], [], [], $post);
 
         $this->assertEquals(
-            $request->getRawBodyParameters(),
+            $request->getRawBody(),
             $post
         );
     }
