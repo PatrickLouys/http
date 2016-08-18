@@ -30,7 +30,7 @@ $request->getCookie($key, $defaultValue = null);
 $request->getParameters();
 $request->getQueryParameters();
 $request->getBodyParameters();
-$request->getRawBodyParameters();
+$request->getRawBody();
 $request->getCookies();
 $request->getFiles();
 $request->getMethod();
