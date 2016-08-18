@@ -131,7 +131,7 @@ $cookieBuilder = new CookieBuilder;
 // Disable the secure flag because this is only an example
 $cookieBuilder->setDefaultSecure(false);
 
-$request = new HttpRequest($_GET, $_POST, $_COOKIE, $_FILES, $_SERVER);
+$request = new HttpRequest($_GET, $_POST, $_COOKIE, $_FILES, $_SERVER, file_get_contents('php://input'));
 $response = new HttpResponse;
 
 $content = '<h1>Hello World</h1>';
