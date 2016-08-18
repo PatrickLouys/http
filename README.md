@@ -19,7 +19,7 @@ The Request class provides an object oriented wrapper around the PHP superglobal
 ```php
 use Http\HttpRequest;
 
-$request = new HttpRequest($_GET, $_POST, $_COOKIE, $_FILES, $_SERVER);
+$request = new HttpRequest($_GET, $_POST, $_COOKIE, $_FILES, $_SERVER, file_get_contents('php://input'));
 ```
 
 Now you can use the following methods on the `$request` object:
@@ -28,6 +28,9 @@ $request->getParameter($key, $defaultValue = null);
 $request->getFile($key, $defaultValue = null);
 $request->getCookie($key, $defaultValue = null);
 $request->getParameters();
+$request->getQueryParameters();
+$request->getBodyParameters();
+$request->getRawBodyParameters();
 $request->getCookies();
 $request->getFiles();
 $request->getMethod();

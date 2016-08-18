@@ -92,6 +92,18 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
 
         $this->assertNull($request->getQueryParameter('key3'));
     }
+
+    public function testGetRawBodyParameter()
+    {
+        $post = "{'key1' => 'value1'}";
+
+        $request = new HttpRequest([], [], [], [], [], $post);
+
+        $this->assertEquals(
+            $request->getRawBodyParameters(),
+            $post
+        );
+    }
     
     public function testGetCookie()
     {
@@ -317,7 +329,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
         $request = new HttpRequest([], [], [], [], $server);
 
         $this->assertEquals(
-            $request->getReferer(), 
+            $request->getReferer(),
             $server['HTTP_REFERER']
         );
     }

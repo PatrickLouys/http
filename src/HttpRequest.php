@@ -15,13 +15,15 @@ class HttpRequest implements Request
         array $post,
         array $cookies,
         array $files,
-        array $server
+        array $server,
+        $inputStream = ''
     ) {
         $this->getParameters = $get;
         $this->postParameters = $post;
         $this->cookies = $cookies;
         $this->files = $files;
         $this->server = $server;
+        $this->inputStream = $inputStream;
     }
 
     /**
@@ -138,6 +140,15 @@ class HttpRequest implements Request
         return $this->postParameters;
     }
 
+    /**
+    + Returns raw values from the read-only stream that allows you to read raw data from the request body.
+    *
+    * @return string
+    */
+    public function getRawBodyParameters()
+    {
+        return $this->inputStream;
+    }
 
     /**
      * Returns a Cookie Iterator.
