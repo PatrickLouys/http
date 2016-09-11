@@ -285,13 +285,16 @@ class HttpRequest implements Request
 
     private function parseInputParameters()
     {
-        if (($this->getMethod() == 'PUT' || $this->getMethod() == 'PATCH') && isset($this->server['HTTP_CONTENT_TYPE'])) {
+        if (isset($this->server['REQUEST_METHOD']) && isset($this->server['HTTP_CONTENT_TYPE']) &&
+            ($this->getMethod() == 'PUT' || $this->getMethod() == 'PATCH'))
+        {
             if ($this->server['HTTP_CONTENT_TYPE'] == 'application/x-www-form-urlencoded') {
                 parse_str($this->inputStream, $this->postParameters);
             }
             else if ($this->server['HTTP_CONTENT_TYPE'] == 'application/json') {
                 $this->postParameters = json_decode($this->inputStream, true);
             }
+
         }
     }
 }
