@@ -173,12 +173,12 @@ class HttpResponse implements Response
     /**
      * Sets the body content.
      *
-     * @param  string $content
+     * @param  string|array $content
      * @return void
      */
     public function setContent($content)
     {
-        $this->content = (string) $content;
+        $this->content = $content;
     }
 
     /**
@@ -188,7 +188,11 @@ class HttpResponse implements Response
      */
     public function getContent()
     {
-        return $this->content;
+        if (isset($this->headers['Content-Type']) && $this->headers['Content-Type'][0] == "application/json") {
+            return json_encode($this->content);
+        }
+        else
+            return (string) $this->content;
     }
 
     /**
