@@ -9,6 +9,7 @@ class HttpRequest implements Request
     protected $server;
     protected $files;
     protected $cookies;
+    protected $inputStream;
 
     public function __construct(
         array $get,
@@ -24,6 +25,8 @@ class HttpRequest implements Request
         $this->files = $files;
         $this->server = $server;
         $this->inputStream = $inputStream;
+
+        $this->parseInputParameters();
     }
 
     /**
@@ -141,10 +144,10 @@ class HttpRequest implements Request
     }
 
     /**
-    * Returns raw values from the read-only stream that allows you to read raw data from the request body.
-    *
-    * @return string
-    */
+     * Returns raw values from the read-only stream that allows you to read raw data from the request body.
+     *
+     * @return string
+     */
     public function getRawBody()
     {
         return $this->inputStream;
@@ -278,5 +281,17 @@ class HttpRequest implements Request
         }
 
         return $this->server[$key];
+    }
+
+    private function parseInputParameters()
+    {
+        if ($this->getMethod() == 'PUT' || $this->getMethod() == 'PATCH') {
+            if ($this->getServerVariable('HTTP_CONTENT_TYPE') == 'application/x-www-form-urlencoded') {
+                parse_str($this->inputStream, $this->postParameters);
+            }
+            else if ($this->getServerVariable('HTTP_CONTENT_TYPE') == 'application/json') {
+                $this->postParameters = json_decode($this->inputStream, true);
+            }
+        }
     }
 }
