@@ -202,6 +202,21 @@ class HttpResponse implements Response
         $this->setHeader('Location', $url);
         $this->setStatusCode(301);
     }
+    
+    /**
+     * Sends the headers and content
+     *
+     * @codeCoverageIgnore This function can not be tested because it uses native php functions
+     * @return void
+     */
+    public function send() 
+    {
+        foreach ($response->getHeaders() as $header) {
+            header($header);
+        }
+
+        echo $response->getContent();
+    }
 
     private function getRequestLineHeaders()
     {
