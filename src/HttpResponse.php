@@ -211,11 +211,11 @@ class HttpResponse implements Response
      */
     public function send() 
     {
-        foreach ($response->getHeaders() as $header) {
+        foreach ($this->getHeaders() as $header) {
             header($header);
         }
 
-        echo $response->getContent();
+        echo $this->getContent();
     }
 
     private function getRequestLineHeaders()
