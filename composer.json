@@ -1,5 +1,5 @@
 {
-    "name": "patricklouys/http",
+    "name": "tflori/http",
     "description": "HTTP Component",
     "keywords": ["http", "request", "response"],
     "license": "MIT",
@@ -8,6 +8,11 @@
             "name": "Patrick Louys",
             "email": "patrick@louys.ch",
             "role": "Creator / Main Developer"
+        },
+        {
+            "name": "Thomas Flori",
+            "email": "thflori@gmail.com",
+            "role": "Developer"
         }
     ],
     "require": {
