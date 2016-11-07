@@ -145,9 +145,5 @@ if ($request->getParameter('setCookie') === 'true') {
 
 $response->setContent($content);
 
-foreach ($response->getHeaders() as $header) {
-    header($header);
-}
-
-echo $response->getContent();
+$response->send();
 ```
