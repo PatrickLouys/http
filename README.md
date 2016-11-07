@@ -77,20 +77,17 @@ The `redirect` method will set the status code and text for a 301 redirect.
 
 `deleteCookie` will set the cookie content to nothing and put the expiration in the past.
 
-The following two methods are available to send the response to the client:
+The following two methods are available to get the current data in the response:
 ```php
 $response->getHeaders();
 $response->getContent();
 ```
 
-They can be used like this:
+To send the response use the following method:
 ```php
-foreach ($response->getHeaders() as $header) {
-    header($header, false);
-}
-
-echo $response->getContent();
+$response->send();
 ```
+> make sure not to send the response twice as you will get an error message.
 
 **The second parameter of `header` must be false. Otherwise existing headers will be overwritten.**
 
