@@ -1,6 +1,10 @@
 ## Http Component
 
-[![Build Status](https://travis-ci.org/tflori/http.svg?branch=master)](https://travis-ci.org/tflori/http) [![Coverage Status](https://coveralls.io/repos/tflori/http/badge.png?branch=master)](https://coveralls.io/r/tflori/http?branch=master) [![Latest Stable Version](https://poser.pugx.org/tflori/http/v/stable.svg)](https://packagist.org/packages/tflori/http) [![Total Downloads](https://poser.pugx.org/tflori/http/downloads.svg)](https://packagist.org/packages/tflori/http) [![License](https://poser.pugx.org/tflori/http/license.svg)](https://packagist.org/packages/tflori/http)
+[![Build Status](https://travis-ci.org/tflori/http.svg?branch=master)](https://travis-ci.org/tflori/http) 
+[![Coverage Status](https://coveralls.io/repos/github/tflori/http/badge.svg?branch=master)](https://coveralls.io/github/tflori/http?branch=master)
+[![Latest Stable Version](https://poser.pugx.org/tflori/http/v/stable.svg)](https://packagist.org/packages/tflori/http) 
+[![Total Downloads](https://poser.pugx.org/tflori/http/downloads.svg)](https://packagist.org/packages/tflori/http) 
+[![License](https://poser.pugx.org/tflori/http/license.svg)](https://packagist.org/packages/tflori/http)
 
 ## Installation
 
