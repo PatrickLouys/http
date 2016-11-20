@@ -19,28 +19,28 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
         $request = new HttpRequest($get, $post, [], [], []);
 
         $this->assertEquals(
-            $request->getParameter('key1'), 
+            $request->getParameter('key1'),
             $get['key1']
         );
 
         $this->assertEquals(
-            $request->getParameter('key1', 'defaultValue'), 
+            $request->getParameter('key1', 'defaultValue'),
             $get['key1']
         );
 
         $this->assertEquals(
-            $request->getParameter('key2'), 
+            $request->getParameter('key2'),
             $post['key2']
         );
 
         $this->assertEquals(
-            $request->getParameter('key3', 'defaultValue'), 
+            $request->getParameter('key3', 'defaultValue'),
             'defaultValue'
         );
 
         $this->assertNull($request->getParameter('key3'));
     }
-    
+
     public function testGetQueryParameter()
     {
         $get = [
@@ -50,17 +50,17 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
         $request = new HttpRequest($get, [], [], [], []);
 
         $this->assertEquals(
-            $request->getQueryParameter('key1'), 
+            $request->getQueryParameter('key1'),
             $get['key1']
         );
 
         $this->assertEquals(
-            $request->getQueryParameter('key1', 'defaultValue'), 
+            $request->getQueryParameter('key1', 'defaultValue'),
             $get['key1']
         );
 
         $this->assertEquals(
-            $request->getQueryParameter('key3', 'defaultValue'), 
+            $request->getQueryParameter('key3', 'defaultValue'),
             'defaultValue'
         );
 
@@ -76,17 +76,17 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
         $request = new HttpRequest([], $post, [], [], []);
 
         $this->assertEquals(
-            $request->getBodyParameter('key1'), 
+            $request->getBodyParameter('key1'),
             $post['key1']
         );
 
         $this->assertEquals(
-            $request->getBodyParameter('key1', 'defaultValue'), 
+            $request->getBodyParameter('key1', 'defaultValue'),
             $post['key1']
         );
 
         $this->assertEquals(
-            $request->getBodyParameter('key3', 'defaultValue'), 
+            $request->getBodyParameter('key3', 'defaultValue'),
             'defaultValue'
         );
 
@@ -104,7 +104,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
             $post
         );
     }
-    
+
     public function testGetCookie()
     {
         $cookies = [
@@ -115,22 +115,22 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
         $request = new HttpRequest([], [], $cookies, [], []);
 
         $this->assertEquals(
-            $request->getCookie('key1'), 
+            $request->getCookie('key1'),
             $cookies['key1']
         );
 
         $this->assertEquals(
-            $request->getCookie('key1', 'defaultValue'), 
+            $request->getCookie('key1', 'defaultValue'),
             $cookies['key1']
         );
 
         $this->assertEquals(
-            $request->getCookie('key2'), 
+            $request->getCookie('key2'),
             $cookies['key2']
         );
 
         $this->assertEquals(
-            $request->getCookie('key3', 'defaultValue'), 
+            $request->getCookie('key3', 'defaultValue'),
             'defaultValue'
         );
 
@@ -147,22 +147,22 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
         $request = new HttpRequest([], [], [], $files, []);
 
         $this->assertEquals(
-            $request->getFile('key1'), 
+            $request->getFile('key1'),
             $files['key1']
         );
 
         $this->assertEquals(
-            $request->getFile('key1', 'defaultValue'), 
+            $request->getFile('key1', 'defaultValue'),
             $files['key1']
         );
 
         $this->assertEquals(
-            $request->getFile('key2'), 
+            $request->getFile('key2'),
             $files['key2']
         );
 
         $this->assertEquals(
-            $request->getFile('key3', 'defaultValue'), 
+            $request->getFile('key3', 'defaultValue'),
             'defaultValue'
         );
 
@@ -176,11 +176,11 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
         $request = new HttpRequest($get, [], [], [], []);
 
         $this->assertEquals(
-            $request->getParameters(), 
+            $request->getParameters(),
             $get
         );
     }
-    
+
     public function testGetQueryParameters()
     {
         $get = ['key1' => 'value1'];
@@ -188,11 +188,11 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
         $request = new HttpRequest($get, [], [], [], []);
 
         $this->assertEquals(
-            $request->getQueryParameters(), 
+            $request->getQueryParameters(),
             $get
         );
     }
-    
+
     public function testGetBodyParameters()
     {
         $post = ['key1' => 'value1'];
@@ -200,7 +200,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
         $request = new HttpRequest([], $post, [], [], []);
 
         $this->assertEquals(
-            $request->getBodyParameters(), 
+            $request->getBodyParameters(),
             $post
         );
     }
@@ -212,7 +212,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
         $request = new HttpRequest([], [], $cookies, [], []);
 
         $this->assertEquals(
-            $request->getCookies(), 
+            $request->getCookies(),
             $cookies
         );
     }
@@ -224,7 +224,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
         $request = new HttpRequest([], [], [], $files, []);
 
         $this->assertEquals(
-            $request->getFiles(), 
+            $request->getFiles(),
             $files
         );
     }
@@ -236,7 +236,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
         $request = new HttpRequest([], [], [], [], $server);
 
         $this->assertEquals(
-            $request->getMethod(), 
+            $request->getMethod(),
             $server['REQUEST_METHOD']
         );
     }
@@ -257,7 +257,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
         $request = new HttpRequest([], [], [], [], $server);
 
         $this->assertEquals(
-            $request->getUri(), 
+            $request->getUri(),
             $server['REQUEST_URI']
         );
 
@@ -266,7 +266,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
         $request = new HttpRequest([], [], [], [], $server);
 
         $this->assertEquals(
-            $request->getUri(), 
+            $request->getUri(),
             $server['REQUEST_URI']
         );
     }
@@ -287,7 +287,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
         $request = new HttpRequest([], [], [], [], $server);
 
         $this->assertEquals(
-            $request->getPath(), 
+            $request->getPath(),
             '/test'
         );
 
@@ -296,9 +296,20 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
         $request = new HttpRequest([], [], [], [], $server);
 
         $this->assertEquals(
-            $request->getPath(), 
+            $request->getPath(),
             '/test'
         );
+    }
+
+    public function testGetRelativePath()
+    {
+        $server = ['REQUEST_URI' => '/path/to/myapp/imprint', 'PHP_SELF' => '/path/to/myapp/app.php'];
+
+        $request = new HttpRequest([], [], [], [], $server);
+
+        $relativePath = $request->getRelativePath();
+
+        self::assertSame('/imprint', $relativePath);
     }
 
     public function testGetHttpAccept()
@@ -308,7 +319,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
         $request = new HttpRequest([], [], [], [], $server);
 
         $this->assertEquals(
-            $request->getHttpAccept(), 
+            $request->getHttpAccept(),
             $server['HTTP_ACCEPT']
         );
     }
@@ -350,7 +361,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
         $request = new HttpRequest([], [], [], [], $server);
 
         $this->assertEquals(
-            $request->getUserAgent(), 
+            $request->getUserAgent(),
             $server['HTTP_USER_AGENT']
         );
     }
@@ -371,7 +382,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
         $request = new HttpRequest([], [], [], [], $server);
 
         $this->assertEquals(
-            $request->getIpAddress(), 
+            $request->getIpAddress(),
             $server['REMOTE_ADDR']
         );
     }
@@ -404,7 +415,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
         $request = new HttpRequest([], [], [], [], $server);
 
         $this->assertEquals(
-            $request->getQueryString(), 
+            $request->getQueryString(),
             $server['QUERY_STRING']
         );
     }
