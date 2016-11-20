@@ -1,12 +1,16 @@
 ## Http Component
 
-[![Build Status](https://travis-ci.org/PatrickLouys/http.svg?branch=master)](https://travis-ci.org/PatrickLouys/http) [![Coverage Status](https://coveralls.io/repos/PatrickLouys/http/badge.png?branch=master)](https://coveralls.io/r/PatrickLouys/http?branch=master) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/PatrickLouys/http/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/PatrickLouys/http/?branch=master) [![Latest Stable Version](https://poser.pugx.org/patricklouys/http/v/stable.svg)](https://packagist.org/packages/patricklouys/http) [![Total Downloads](https://poser.pugx.org/patricklouys/http/downloads.svg)](https://packagist.org/packages/patricklouys/http) [![License](https://poser.pugx.org/patricklouys/http/license.svg)](https://packagist.org/packages/patricklouys/http)
+[![Build Status](https://travis-ci.org/tflori/http.svg?branch=master)](https://travis-ci.org/tflori/http) 
+[![Coverage Status](https://coveralls.io/repos/github/tflori/http/badge.svg?branch=master)](https://coveralls.io/github/tflori/http?branch=master)
+[![Latest Stable Version](https://poser.pugx.org/tflori/http/v/stable.svg)](https://packagist.org/packages/tflori/http) 
+[![Total Downloads](https://poser.pugx.org/tflori/http/downloads.svg)](https://packagist.org/packages/tflori/http) 
+[![License](https://poser.pugx.org/tflori/http/license.svg)](https://packagist.org/packages/tflori/http)
 
 ## Installation
 
-You can use composer to install this component. The package is: 
+You can use composer to install this component: 
 ```
-patricklouys/http
+composer require tflori/http
 ```
 
 ## Basic Usage
@@ -73,20 +77,17 @@ The `redirect` method will set the status code and text for a 301 redirect.
 
 `deleteCookie` will set the cookie content to nothing and put the expiration in the past.
 
-The following two methods are available to send the response to the client:
+The following two methods are available to get the current data in the response:
 ```php
 $response->getHeaders();
 $response->getContent();
 ```
 
-They can be used like this:
+To send the response use the following method:
 ```php
-foreach ($response->getHeaders() as $header) {
-    header($header, false);
-}
-
-echo $response->getContent();
+$response->send();
 ```
+> make sure not to send the response twice as you will get an error message.
 
 **The second parameter of `header` must be false. Otherwise existing headers will be overwritten.**
 
@@ -144,9 +145,5 @@ if ($request->getParameter('setCookie') === 'true') {
 
 $response->setContent($content);
 
-foreach ($response->getHeaders() as $header) {
-    header($header);
-}
-
-echo $response->getContent();
+$response->send();
 ```

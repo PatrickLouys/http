@@ -192,6 +192,16 @@ class HttpRequest implements Request
     }
 
     /**
+     * Get path relative to executed script
+     *
+     * @return string
+     */
+    public function getRelativePath()
+    {
+        return substr($this->getPath(), strlen(dirname($this->getServerVariable('PHP_SELF'))));
+    }
+
+    /**
      * Which request method was used to access the page;
      * i.e. 'GET', 'HEAD', 'POST', 'PUT'.
      *
