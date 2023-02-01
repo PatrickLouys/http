@@ -3,8 +3,9 @@
 namespace Http\Test\Unit;
 
 use Http\HttpResponse;
+use PHPUnit\Framework\TestCase;
 
-class HttpResponseTest extends \PHPUnit_Framework_TestCase
+class HttpResponseTest extends TestCase
 {
     public function testSetStatusCode()
     {

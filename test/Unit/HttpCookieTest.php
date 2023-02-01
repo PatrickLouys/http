@@ -3,8 +3,9 @@
 namespace Http\Test\Unit;
 
 use Http\HttpCookie;
+use PHPUnit\Framework\TestCase;
 
-class HttpCookieTest extends \PHPUnit_Framework_TestCase
+class HttpCookieTest extends TestCase
 {
     public function testGetName()
     {

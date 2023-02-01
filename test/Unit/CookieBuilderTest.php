@@ -3,8 +3,9 @@
 namespace Http\Test\Unit;
 
 use Http\CookieBuilder;
+use PHPUnit\Framework\TestCase;
 
-class CookieBuilderTest extends \PHPUnit_Framework_TestCase
+class CookieBuilderTest extends TestCase
 {
     public function testSetDefaultDomain()
     {

@@ -2,28 +2,27 @@
 
 namespace Http;
 
+/**
+ * @template TValue
+ */
 class HttpRequest implements Request
 {
-    protected $getParameters;
-    protected $postParameters;
-    protected $server;
-    protected $files;
-    protected $cookies;
-
+    /**
+     * @param array<string,TValue>  $getParameters
+     * @param array<string,TValue>  $postParameters
+     * @param array<string,TValue>  $cookies
+     * @param array<string,TValue>  $files
+     * @param array<string,TValue>  $server
+     * @param string $inputStream
+     */
     public function __construct(
-        array $get,
-        array $post,
-        array $cookies,
-        array $files,
-        array $server,
-        $inputStream = ''
+        public readonly array $getParameters,
+        public readonly array $postParameters,
+        public readonly array $cookies,
+        public readonly array $files,
+        public readonly array $server,
+        public readonly string $inputStream = ''
     ) {
-        $this->getParameters = $get;
-        $this->postParameters = $post;
-        $this->cookies = $cookies;
-        $this->files = $files;
-        $this->server = $server;
-        $this->inputStream = $inputStream;
     }
 
     /**
@@ -31,9 +30,8 @@ class HttpRequest implements Request
      *
      * @param  string $key
      * @param  string $defaultValue (optional)
-     * @return string
      */
-    public function getParameter($key, $defaultValue = null)
+    public function getParameter(string $key, $defaultValue = null): string|int|null
     {
         if (array_key_exists($key, $this->postParameters)) {
             return $this->postParameters[$key];
@@ -53,7 +51,7 @@ class HttpRequest implements Request
      * @param  string $defaultValue (optional)
      * @return string
      */
-    public function getQueryParameter($key, $defaultValue = null)
+    public function getQueryParameter(string $key, $defaultValue = null): string|int|null
     {
         if (array_key_exists($key, $this->getParameters)) {
             return $this->getParameters[$key];
@@ -69,7 +67,7 @@ class HttpRequest implements Request
      * @param  string $defaultValue (optional)
      * @return string
      */
-    public function getBodyParameter($key, $defaultValue = null)
+    public function getBodyParameter(string $key, $defaultValue = null): string
     {
         if (array_key_exists($key, $this->postParameters)) {
             return $this->postParameters[$key];
@@ -83,9 +81,8 @@ class HttpRequest implements Request
      *
      * @param  string $key
      * @param  string $defaultValue (optional)
-     * @return string
      */
-    public function getFile($key, $defaultValue = null)
+    public function getFile(string $key, $defaultValue = null): string|null
     {
         if (array_key_exists($key, $this->files)) {
             return $this->files[$key];
@@ -99,9 +96,8 @@ class HttpRequest implements Request
      *
      * @param  string $key
      * @param  string $defaultValue (optional)
-     * @return string
      */
-    public function getCookie($key, $defaultValue = null)
+    public function getCookie(string $key, $defaultValue = null): string|int|null
     {
         if (array_key_exists($key, $this->cookies)) {
             return $this->cookies[$key];
@@ -113,9 +109,9 @@ class HttpRequest implements Request
     /**
      * Returns all parameters.
      *
-     * @return array
+     * @return array<string, TValue>
      */
-    public function getParameters()
+    public function getParameters(): array
     {
         return array_merge($this->getParameters, $this->postParameters);
     }
@@ -123,9 +119,9 @@ class HttpRequest implements Request
     /**
      * Returns all query parameters.
      *
-     * @return array
+     * @return array<string, TValue>
      */
-    public function getQueryParameters()
+    public function getQueryParameters(): array
     {
         return $this->getParameters;
     }
@@ -133,9 +129,9 @@ class HttpRequest implements Request
     /**
      * Returns all body parameters.
      *
-     * @return array
+     * @return array<string, TValue>
      */
-    public function getBodyParameters()
+    public function getBodyParameters(): array
     {
         return $this->postParameters;
     }
@@ -145,7 +141,7 @@ class HttpRequest implements Request
     *
     * @return string
     */
-    public function getRawBody()
+    public function getRawBody(): string
     {
         return $this->inputStream;
     }
@@ -153,9 +149,9 @@ class HttpRequest implements Request
     /**
      * Returns a Cookie Iterator.
      *
-     * @return array
+     * @return array<string, TValue>
      */
-    public function getCookies()
+    public function getCookies(): array
     {
         return $this->cookies;
     }
@@ -163,9 +159,9 @@ class HttpRequest implements Request
     /**
      * Returns a File Iterator.
      *
-     * @return array
+     * @return array<string, TValue>
      */
-    public function getFiles()
+    public function getFiles(): array
     {
         return $this->files;
     }
@@ -176,7 +172,7 @@ class HttpRequest implements Request
      * @return string
      * @throws MissingRequestMetaVariableException
      */
-    public function getUri()
+    public function getUri(): string
     {
         return $this->getServerVariable('REQUEST_URI');
     }
@@ -186,7 +182,7 @@ class HttpRequest implements Request
      *
      * @return string
      */
-    public function getPath()
+    public function getPath(): string
     {
         return strtok($this->getServerVariable('REQUEST_URI'), '?');
     }
@@ -198,7 +194,7 @@ class HttpRequest implements Request
      * @return string
      * @throws MissingRequestMetaVariableException
      */
-    public function getMethod()
+    public function getMethod(): string
     {
         return $this->getServerVariable('REQUEST_METHOD');
     }
@@ -209,7 +205,7 @@ class HttpRequest implements Request
      * @return string
      * @throws MissingRequestMetaVariableException
      */
-    public function getHttpAccept()
+    public function getHttpAccept(): string
     {
         return $this->getServerVariable('HTTP_ACCEPT');
     }
@@ -221,7 +217,7 @@ class HttpRequest implements Request
      * @return string
      * @throws MissingRequestMetaVariableException
      */
-    public function getReferer()
+    public function getReferer(): string
     {
         return $this->getServerVariable('HTTP_REFERER');
     }
@@ -232,7 +228,7 @@ class HttpRequest implements Request
      * @return string
      * @throws MissingRequestMetaVariableException
      */
-    public function getUserAgent()
+    public function getUserAgent(): string
     {
         return $this->getServerVariable('HTTP_USER_AGENT');
     }
@@ -243,7 +239,7 @@ class HttpRequest implements Request
      * @return string
      * @throws MissingRequestMetaVariableException
      */
-    public function getIpAddress()
+    public function getIpAddress(): string
     {
         return $this->getServerVariable('REMOTE_ADDR');
     }
@@ -253,7 +249,7 @@ class HttpRequest implements Request
      *
      * @return boolean
      */
-    public function isSecure()
+    public function isSecure(): bool
     {
         return (array_key_exists('HTTPS', $this->server)
             && $this->server['HTTPS'] !== 'off'
@@ -266,12 +262,15 @@ class HttpRequest implements Request
      * @return string
      * @throws MissingRequestMetaVariableException
      */
-    public function getQueryString()
+    public function getQueryString(): string
     {
         return $this->getServerVariable('QUERY_STRING');
     }
 
-    private function getServerVariable($key)
+    /**
+     * @throws MissingRequestMetaVariableException
+     */
+    private function getServerVariable($key): string
     {
         if (!array_key_exists($key, $this->server)) {
             throw new MissingRequestMetaVariableException($key);
