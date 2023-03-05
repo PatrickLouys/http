@@ -1,12 +1,12 @@
 {
-    "name": "patricklouys/http",
+    "name": "fperdomo/http",
     "description": "HTTP Component",
     "keywords": ["http", "request", "response"],
     "license": "MIT",
     "authors": [
         {
-            "name": "Patrick Louys",
-            "email": "patrick@louys.ch",
+            "name": "Fermin Perdomo",
+            "email": "masterfermin02@gmail.com",
             "role": "Creator / Main Developer"
         }
     ],
