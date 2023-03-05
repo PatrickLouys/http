@@ -2,11 +2,16 @@
 
 [![Build Status](https://travis-ci.org/PatrickLouys/http.svg?branch=master)](https://travis-ci.org/PatrickLouys/http) [![Coverage Status](https://coveralls.io/repos/PatrickLouys/http/badge.png?branch=master)](https://coveralls.io/r/PatrickLouys/http?branch=master) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/PatrickLouys/http/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/PatrickLouys/http/?branch=master) [![Latest Stable Version](https://poser.pugx.org/patricklouys/http/v/stable.svg)](https://packagist.org/packages/patricklouys/http) [![Total Downloads](https://poser.pugx.org/patricklouys/http/downloads.svg)](https://packagist.org/packages/patricklouys/http) [![License](https://poser.pugx.org/patricklouys/http/license.svg)](https://packagist.org/packages/patricklouys/http)
 
+## Disclaimer
+
+I uploaded my own version because I sent a pull request to support php 8.2 to [http](https://github.com/PatrickLouys/http), but never response and the package
+is not update it since 2016.
+
 ## Installation
 
 You can use composer to install this component. The package is: 
 ```
-patricklouys/http
+composer require fperdomo/http
 ```
 
 ## Basic Usage
