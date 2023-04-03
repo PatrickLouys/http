@@ -4,7 +4,7 @@ namespace Http\Test\Unit;
 
 use Http\HttpResponse;
 
-class HttpResponseTest extends \PHPUnit_Framework_TestCase
+class HttpResponseTest extends \PHPUnit\Framework\TestCase
 {
     public function testSetStatusCode()
     {

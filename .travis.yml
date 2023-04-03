@@ -1,9 +1,9 @@
 language: php
 php:
-  - "5.5"
+  - "8.2"
 
 install:
-  - composer require satooshi/php-coveralls:~0.6@stable
+  - composer require php-coveralls/php-coveralls:~2.5
  
 before_script:
   - mkdir -p build/logs

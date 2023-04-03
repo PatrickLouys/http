@@ -1,0 +1,28 @@
+name: push-run-test-suite
+run-name: ${{ github.event.repository.name }} ${{ github.event.ref }} ${{ github.event.head_commit.message }} run test suite.
+on: [push]
+jobs:
+  run-test-suite:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v3
+        with:
+          php-version: 8.2
+          coverage: none
+          tools: composer:v2
+      - name: Set
+      - name: Install dependencies
+        run: composer install --dev --no-interaction
+      - name: Create build directory
+        run: mkdir -p build/logs
+      - name: Run test suite
+        run: ./vendor/bin/phpunit --bootstrap vendor/autoload.php --coverage-clover build/logs/clover.xml test
+      - name: Upload coverage to Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: build/logs/clover.xml
+  
