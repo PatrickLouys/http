@@ -13,6 +13,8 @@ jobs:
           php-version: 8.2
           coverage: none
           tools: composer:v2
+      - name : Install php-coveralls
+        run: composer require php-coveralls/php-coveralls:~2.5
       - name: Install dependencies
         run: composer install --dev --no-interaction
       - name: Create build directory
