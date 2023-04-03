@@ -11,7 +11,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: 8.2
-          coverage: none
+          coverage: xdebug
           tools: composer:v2
       - name : Install php-coveralls
         run: composer require php-coveralls/php-coveralls:~2.5
