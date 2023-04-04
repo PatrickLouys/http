@@ -4,6 +4,9 @@ namespace Http\Test\Unit;
 
 use Http\HttpResponse;
 
+/**
+ * @covers Http\HttpResponse
+ */
 class HttpResponseTest extends \PHPUnit\Framework\TestCase
 {
     public function testSetStatusCode()

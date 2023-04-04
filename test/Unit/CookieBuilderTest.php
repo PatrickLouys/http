@@ -4,6 +4,10 @@ namespace Http\Test\Unit;
 
 use Http\CookieBuilder;
 
+/**
+ * @covers Http\CookieBuilder
+ * @covers Http\HttpCookie
+ */
 class CookieBuilderTest extends \PHPUnit\Framework\TestCase
 {
     public function testSetDefaultDomain()

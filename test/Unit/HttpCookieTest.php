@@ -4,6 +4,9 @@ namespace Http\Test\Unit;
 
 use Http\HttpCookie;
 
+/**
+ * @covers Http\HttpCookie
+ */
 class HttpCookieTest extends \PHPUnit\Framework\TestCase
 {
     public function testGetName()

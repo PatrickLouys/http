@@ -4,6 +4,10 @@ namespace Http\Test\Unit;
 
 use Http\HttpRequest;
 
+/**
+ * @covers Http\HttpRequest
+ * @uses Http\MissingRequestMetaVariableException
+ */
 class HttpRequestTest extends \PHPUnit\Framework\TestCase
 {
     public function testGetParameter()
