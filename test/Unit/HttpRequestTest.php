@@ -4,7 +4,11 @@ namespace Http\Test\Unit;
 
 use Http\HttpRequest;
 
-class HttpRequestTest extends \PHPUnit_Framework_TestCase
+/**
+ * @covers Http\HttpRequest
+ * @uses Http\MissingRequestMetaVariableException
+ */
+class HttpRequestTest extends \PHPUnit\Framework\TestCase
 {
     public function testGetParameter()
     {
@@ -241,11 +245,9 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @expectedException Http\MissingRequestMetaVariableException
-     */
     public function testGetMethodException()
     {
+        $this->expectException(\Http\MissingRequestMetaVariableException::class);
         $request = new HttpRequest([], [], [], [], []);
         $request->getMethod();
     }
@@ -271,11 +273,9 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @expectedException Http\MissingRequestMetaVariableException
-     */
     public function testGetUriException()
     {
+        $this->expectException(\Http\MissingRequestMetaVariableException::class);
         $request = new HttpRequest([], [], [], [], []);
         $request->getUri();
     }
@@ -313,11 +313,9 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @expectedException Http\MissingRequestMetaVariableException
-     */
     public function testGetHttpAcceptException()
     {
+        $this->expectException(\Http\MissingRequestMetaVariableException::class);
         $request = new HttpRequest([], [], [], [], []);
         $request->getHttpAccept();
     }
@@ -334,11 +332,9 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @expectedException Http\MissingRequestMetaVariableException
-     */
     public function testGetRefererException()
     {
+        $this->expectException(\Http\MissingRequestMetaVariableException::class);
         $request = new HttpRequest([], [], [], [], []);
         $request->getReferer();
     }
@@ -355,11 +351,9 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @expectedException Http\MissingRequestMetaVariableException
-     */
     public function testGetUserAgentException()
     {
+        $this->expectException(\Http\MissingRequestMetaVariableException::class);
         $request = new HttpRequest([], [], [], [], []);
         $request->getUserAgent();
     }
@@ -376,11 +370,9 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @expectedException Http\MissingRequestMetaVariableException
-     */
     public function testGetIpAddressException()
     {
+        $this->expectException(\Http\MissingRequestMetaVariableException::class);
         $request = new HttpRequest([], [], [], [], []);
         $request->getIpAddress();
     }
@@ -409,11 +401,9 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @expectedException Http\MissingRequestMetaVariableException
-     */
     public function testGetQueryStringException()
     {
+        $this->expectException(\Http\MissingRequestMetaVariableException::class);
         $request = new HttpRequest([], [], [], [], []);
         $request->getQueryString();
     }
