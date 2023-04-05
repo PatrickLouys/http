@@ -14,7 +14,7 @@ jobs:
           coverage: xdebug
           tools: composer:v2
       - name : Install php-coveralls
-        run: composer require php-coveralls/php-coveralls:~2.5
+        run: composer global require php-coveralls/php-coveralls:~2.5
       - name: Install dependencies
         run: composer install --dev --no-interaction
       - name: Create build directory
@@ -22,8 +22,8 @@ jobs:
       - name: Run test suite
         run: ./vendor/bin/phpunit --bootstrap vendor/autoload.php --coverage-clover build/logs/clover.xml test
       - name: Upload coverage to Coveralls
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          path-to-lcov: build/logs/clover.xml
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          php-coveralls --coverage_clover=build/logs/clover.xml -v
   
